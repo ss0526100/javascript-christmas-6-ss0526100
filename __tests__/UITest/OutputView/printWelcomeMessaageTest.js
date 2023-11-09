@@ -8,7 +8,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-test('printStartMessage()', () => {
+test('printWelcomeMessage()', () => {
   //given
   const outputView = OutputView;
   const logSpy = getLogSpy();
