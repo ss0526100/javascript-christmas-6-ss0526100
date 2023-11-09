@@ -13,16 +13,15 @@ describe('digitIntegerString()', () => {
   );
 
   test.each([
-    [
-      ['1.1'],
-      [''],
-      ['-12341234.234'],
-      ['0x123'],
-      ['0b11'],
-      ['0o11'],
-      ['2e1'],
-      ['1.1'],
-    ],
+    ['1.1'],
+    [''],
+    ['-12341234.234'],
+    ['0x123'],
+    ['0b11'],
+    ['0o11'],
+    ['2e1'],
+    ['1.1'],
+    ,
   ])('예외', input => {
     //given
     const testFucntion = () => Validation.digitIntegerString(input);
