@@ -1,4 +1,4 @@
-import Validation from '../../../../../src/controllers/utils/Validation';
+import Validator from '../../../../../src/controllers/utils/Validator';
 
 describe('numberInRange()', () => {
   test.each([
@@ -10,7 +10,7 @@ describe('numberInRange()', () => {
     [10.1, 10, 11],
   ])('정상작동', input => {
     //given
-    const testFucntion = () => Validation.numberInRange(...input);
+    const testFucntion = () => Validator.numberInRange(...input);
 
     //when
     expect(testFucntion).not.toThrow();
@@ -23,7 +23,7 @@ describe('numberInRange()', () => {
     [-1, 2, 3],
   ])('예외', input => {
     //given
-    const testFucntion = () => Validation.numberInRange(input);
+    const testFucntion = () => Validator.numberInRange(input);
 
     //when
     expect(testFucntion).toThrow('[ERROR]');
