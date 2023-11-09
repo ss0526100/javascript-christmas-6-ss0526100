@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import OutputView from '../../../src/controllers/OutputView';
+import OutputView from '../../../src/views/OutputView';
 
 const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, 'print');
@@ -14,7 +14,7 @@ test('printWelcomeMessage()', () => {
   const logSpy = getLogSpy();
 
   //when
-  outputView.printWelcomeMessaage();
+  outputView.printWelcomeMessage();
 
   //then
   expect(logSpy.mock.calls[0][0]).toBe(
