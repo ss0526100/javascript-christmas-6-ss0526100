@@ -24,14 +24,14 @@ test.each(
   [['15일', '15'], 15],
   [['-1', '134', '111', '하이', '1'], 1],
   ['크리스마스', '이브 다음날', '내 생일', '25', 25]
-)('day()', async (inputs, expectedValue) => {
+)('getDay()', async (inputs, expectedValue) => {
   //given
   const logSpy = getLogSpy();
 
   mockQuestions(inputs);
 
   //when
-  const result = await Convertor.day();
+  const result = await Convertor.getDay();
 
   //then
   for (let index = 0; index < inputs.length - 1; index++) {

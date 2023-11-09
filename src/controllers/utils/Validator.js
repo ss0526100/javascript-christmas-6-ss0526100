@@ -1,21 +1,21 @@
 import CONSTANT from '../../constants/CONSTANT.js';
 
 const {
-  FIRST_DAY_IN_MONTH,
-  LAST_DAY_IN_MONTH,
+  FIRST_DATE_IN_MONTH: FIRST_DAY_IN_MONTH,
+  LAST_DATE_IN_MONTH: LAST_DAY_IN_MONTH,
   DIGIT_INTEGER_REGULAR_EXPRESSION,
   NOT_DIGIT_INTEGER_STRING_ERROR_MESSAGE,
   NOT_NUMBER_IN_RANGE_ERROR_MESSAGE,
-  INVALID_DAY_ERROR_MESSAGE,
+  INVALID_DATE_ERROR_MESSAGE: INVALID_DATE_ERROR_MESSAGE,
 } = CONSTANT;
 
 const Validator = Object.freeze({
-  dayString(string) {
+  dateString(string) {
     try {
       this.digitIntegerString(string);
       this.numberInRange(Number(string), FIRST_DAY_IN_MONTH, LAST_DAY_IN_MONTH);
     } catch (error) {
-      throw new Error(INVALID_DAY_ERROR_MESSAGE);
+      throw new Error(INVALID_DATE_ERROR_MESSAGE);
     }
   },
   digitIntegerString(string) {
