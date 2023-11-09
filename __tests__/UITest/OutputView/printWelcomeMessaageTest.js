@@ -14,7 +14,7 @@ test('printWelcomeMessage()', () => {
   const logSpy = getLogSpy();
 
   //when
-  outputView.printStartMessaage();
+  outputView.printWelcomeMessaage();
 
   //then
   expect(logSpy.mock.calls[0][0]).toBe(
