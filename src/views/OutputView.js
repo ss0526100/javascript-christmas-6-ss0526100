@@ -2,7 +2,12 @@ import { Console } from '@woowacourse/mission-utils';
 
 import CONSTANT from '../constants/CONSTANT.js';
 
-const { WELCOME_MESSAGE_HEADER, WELCOME_MESSAGE_FOOTER } = CONSTANT;
+const {
+  WELCOME_MESSAGE_HEADER,
+  WELCOME_MESSAGE_FOOTER,
+  INPUT_RETRY_MESSAGE,
+  SPACE,
+} = CONSTANT;
 
 const OutputView = Object.freeze({
   printWelcomeMessage(month) {
@@ -13,7 +18,7 @@ const OutputView = Object.freeze({
     // ...
   },
   printError(error) {
-    Console.print(error.message);
+    Console.print(`${error.message}${SPACE}${INPUT_RETRY_MESSAGE}`);
   },
 });
 
