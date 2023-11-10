@@ -1,9 +1,12 @@
+import { Console } from '@woowacourse/mission-utils';
+
+import CONSTANT from '../constants/CONSTANT.js';
+
+const { DATE_INPUT_MESSAGE } = CONSTANT;
+
 const InputView = Object.freeze({
   async readDate() {
-    const input = await Console.readLineAsync(
-      '12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)'
-    );
-    // ...
+    return await Console.readLineAsync(DATE_INPUT_MESSAGE);
   },
   // ...
 });

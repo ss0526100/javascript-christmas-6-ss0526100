@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-import Convertor from '../../../../../src/controllers/utils/Convertor';
+import Pipe from '../../../../../src/controllers/modules/Pipe';
 
 const mockQuestions = inputs => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -19,19 +19,19 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-test.each(
+test.each([
   [['10'], 10],
   [['15일', '15'], 15],
   [['-1', '134', '111', '하이', '1'], 1],
-  ['크리스마스', '이브 다음날', '내 생일', '25', 25]
-)('getDay()', async (inputs, expectedValue) => {
+  [['크리스마스', '이브 다음날', '내 생일', '25'], 25],
+])('getDate()', async (inputs, expectedValue) => {
   //given
   const logSpy = getLogSpy();
 
   mockQuestions(inputs);
 
   //when
-  const result = await Convertor.getDay();
+  const result = await Pipe.date();
 
   //then
   for (let index = 0; index < inputs.length - 1; index++) {
@@ -39,5 +39,5 @@ test.each(
       '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.'
     );
   }
-  result.toBe(expectedValue);
+  expect(result).toBe(expectedValue);
 });

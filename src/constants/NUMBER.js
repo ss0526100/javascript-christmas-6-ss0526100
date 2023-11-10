@@ -1,7 +1,33 @@
 const NUMBER = Object.freeze({
-  NOW_MONTH: 12,
   FIRST_DATE_IN_MONTH: 1,
   LAST_DATE_IN_MONTH: 31,
+
+  JANUARY: 1,
+  FEBRUARY: 2,
+  MARCH: 3,
+  APRIL: 4,
+  MAY: 5,
+  JUNE: 6,
+  JULY: 7,
+  AUGUST: 8,
+  SEPTEMBER: 9,
+  OCTOBER: 10,
+  NOVEMBER: 11,
+  DECEMBER: 12,
+
+  ONE: 1,
+  TWENTY_EIGHT: 28,
+  TWENTY_NINE: 29,
+  THIRTY: 30,
+  THIRTY_ONE: 31,
+
+  SUNDAY: 0,
+  MONDAY: 1,
+  TUSEDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  SATURDAY: 6,
 });
 
 export default NUMBER;

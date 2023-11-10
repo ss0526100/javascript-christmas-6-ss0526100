@@ -2,17 +2,19 @@ import { Console } from '@woowacourse/mission-utils';
 
 import CONSTANT from '../constants/CONSTANT.js';
 
-const { WELCOME_MESSAGE } = CONSTANT;
+const { WELCOME_MESSAGE_HEADER, WELCOME_MESSAGE_FOOTER } = CONSTANT;
 
 const OutputView = Object.freeze({
-  printWelcomeMessage() {
-    Console.print(WELCOME_MESSAGE);
+  printWelcomeMessage(month) {
+    Console.print(`${WELCOME_MESSAGE_HEADER}${month}${WELCOME_MESSAGE_FOOTER}`);
   },
   printMenu() {
     Console.print('<주문 메뉴>');
     // ...
   },
-  // ...
+  printError(error) {
+    Console.print(error.message);
+  },
 });
 
 export default OutputView;
