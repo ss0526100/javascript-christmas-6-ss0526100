@@ -1,4 +1,4 @@
-import Ordervalidator from '../../../../../src/models/modules/OrderValidator';
+import ModelValidator from '../../../../../src/models/modules/ModelValidator';
 
 const mockMenu = menuArray => {
   const menu = new Map();
@@ -27,7 +27,7 @@ describe('itemInMenu()', () => {
   ])('정상작동', (item, menuArray) => {
     //given
     const menu = mockMenu(menuArray);
-    const testFucntion = () => Ordervalidator.itemInMenu(item, menu);
+    const testFucntion = () => ModelValidator.itemInMenu(item, menu);
 
     //when
     expect(testFucntion).not.toThrow();
@@ -45,7 +45,7 @@ describe('itemInMenu()', () => {
   ])('예외', (item, menuArray) => {
     //given
     const menu = mockMenu(menuArray);
-    const testFucntion = () => Ordervalidator.itemInMenu(item, menu);
+    const testFucntion = () => ModelValidator.itemInMenu(item, menu);
 
     //when
     expect(testFucntion).toThrow('[ERROR] 유효하지 않은 주문입니다.');
