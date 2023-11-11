@@ -4,7 +4,7 @@ const mockMenu = menuArray => {
   const menu = new Map();
   menuArray.forEach(menu => {
     const { name } = menu;
-    menu.set(null, { name });
+    menu.set(name, {});
   });
   return menu;
 };
