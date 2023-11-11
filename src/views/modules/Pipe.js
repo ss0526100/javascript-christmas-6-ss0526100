@@ -22,9 +22,8 @@ const Pipe = Object.freeze({
     try {
       orderItems.forEach(InputValidator.orderFormat);
       return orderItems.map(item => {
-        const tmpItem = spliter(item, DASH);
-        tmpItem[1] = Number(tmpItem[1]);
-        return tmpItem;
+        const itemArray = spliter(item, DASH);
+        return { name: itemArray[0], count: Number(itemArray[1]) };
       });
     } catch (error) {
       throw error;
