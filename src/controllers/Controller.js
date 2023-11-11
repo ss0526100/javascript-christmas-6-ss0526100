@@ -26,9 +26,19 @@ class Controller {
 
   async #setOrderDate() {
     while (true) {
-      const date = await Pipe.date();
+      const date = await Pipe.filterDate();
       try {
         return this.#model.initOrder(date);
+      } catch (error) {
+        this.#outputView(error);
+      }
+    }
+  }
+
+  async #setOrderItems() {
+    while (true) {
+      const date = await Pipe.filterDate();
+      try {
       } catch (error) {
         this.#outputView(error);
       }
