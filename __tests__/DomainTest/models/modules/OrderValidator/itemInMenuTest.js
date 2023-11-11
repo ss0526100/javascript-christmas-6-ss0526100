@@ -12,7 +12,7 @@ const mockMenu = menuArray => {
 describe('itemInMenu()', () => {
   test.each([
     [
-      [{ name: '소불고기' }, { name: '돼지불고기' }, { name: '초벌삼겹살' }],
+      { name: '소불고기' },
       [
         { name: '소불고기' },
         { name: '돼지불고기' },
@@ -21,7 +21,7 @@ describe('itemInMenu()', () => {
       ],
     ],
     [
-      [{ name: '김치찌개' }],
+      { name: '김치찌개' },
       [{ name: '된장찌개' }, { name: '고기찌개' }, { name: '김치찌개' }],
     ],
   ])('정상작동', (item, menuArray) => {
