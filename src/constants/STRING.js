@@ -15,6 +15,8 @@ const STRING = Object.freeze({
   INVALID_ORDER_ERROR_MESSAGE: `${ERROR_HEADER} 유효하지 않은 주문입니다.`,
 
   SPACE: ' ',
+  COMMA: ',',
+  DASH: '-',
 });
 
 export default STRING;

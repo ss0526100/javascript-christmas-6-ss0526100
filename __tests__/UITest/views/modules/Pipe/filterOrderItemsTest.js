@@ -28,10 +28,10 @@ describe('filterOrderItems()', () => {
     ],
   ])('정상동작', (input, expectedValue) => {
     //when
-    const date = Pipe.ilterOrderItems(input);
+    const orderItems = Pipe.filterOrderItems(input);
 
     //then
-    expect(date).toEqual(expectedValue);
+    expect(orderItems).toEqual(expectedValue);
   });
 
   test.each([
