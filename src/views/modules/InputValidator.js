@@ -11,7 +11,7 @@ const {
   INVALID_ORDER_ERROR_MESSAGE,
 } = CONSTANT;
 
-const ControllerValidator = Object.freeze({
+const InputValidator = Object.freeze({
   dateString(string) {
     try {
       this.digitIntegerString(string);
@@ -38,4 +38,4 @@ const ControllerValidator = Object.freeze({
   },
 });
 
-export default ControllerValidator;
+export default InputValidator;

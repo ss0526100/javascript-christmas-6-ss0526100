@@ -1,11 +1,11 @@
-import ControllerValidator from '../../../../../src/controllers/modules/ControllerValidator';
+import InputValidator from '../../../../../src/views/modules/InputValidator';
 
 describe('digitIntegerString()', () => {
   test.each([['1'], ['13'], ['234213412341234'], ['-12'], ['0']])(
     '정상작동',
     input => {
       //given
-      const testFucntion = () => ControllerValidator.digitIntegerString(input);
+      const testFucntion = () => InputValidator.digitIntegerString(input);
 
       //when
       expect(testFucntion).not.toThrow();
@@ -24,7 +24,7 @@ describe('digitIntegerString()', () => {
     ,
   ])('예외', input => {
     //given
-    const testFucntion = () => ControllerValidator.digitIntegerString(input);
+    const testFucntion = () => InputValidator.digitIntegerString(input);
 
     //when
     expect(testFucntion).toThrow('[ERROR]');

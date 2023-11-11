@@ -1,4 +1,4 @@
-import ControllerValidator from '../../../../../src/controllers/modules/ControllerValidator';
+import InputValidator from '../../../../../src/views/modules/InputValidator';
 
 describe('orderFormat()', () => {
   test.each([
@@ -9,7 +9,7 @@ describe('orderFormat()', () => {
     ['시저샐러드 - 10'],
   ])('정상동작', input => {
     //given
-    const testFunction = () => ControllerValidator.orderFormat(input);
+    const testFunction = () => InputValidator.orderFormat(input);
 
     expect(testFunction).not.toThrow();
   });
@@ -18,7 +18,7 @@ describe('orderFormat()', () => {
     '예외',
     input => {
       //given
-      const testFunction = () => ControllerValidator.orderFormat(input);
+      const testFunction = () => InputValidator.orderFormat(input);
 
       expect(testFunction).toThrow('[ERROR] 유효하지 않은 주문입니다.');
     }
