@@ -35,11 +35,11 @@ describe('itemInMenu()', () => {
 
   test.each([
     [
-      [{ name: '김치찌개' }],
+      { name: '김치찌개' },
       [{ name: '된장찌개' }, { name: '고기찌개' }, { name: '짜치계' }],
     ],
     [
-      [{ name: '라면사리' }],
+      { name: '라면사리' },
       [{ name: '닭가슴살' }, { name: '브로콜리' }, { name: '불닭소스' }],
     ],
   ])('예외', (item, menuArray) => {
