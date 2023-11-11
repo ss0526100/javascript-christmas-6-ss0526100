@@ -2,8 +2,8 @@ import Ordervalidator from '../../../../../src/models/modules/OrderValidator';
 
 const mockMenu = menuArray => {
   const menu = new Map();
-  menuArray.forEach(menu => {
-    const { name } = menu;
+  menuArray.forEach(menuItem => {
+    const { name } = menuItem;
     menu.set(name, {});
   });
   return menu;
