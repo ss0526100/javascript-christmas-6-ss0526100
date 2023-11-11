@@ -14,6 +14,11 @@ const STRING = Object.freeze({
   INVALID_DATE_ERROR_MESSAGE: `${ERROR_HEADER} 유효하지 않은 날짜입니다.`,
   INVALID_ORDER_ERROR_MESSAGE: `${ERROR_HEADER} 유효하지 않은 주문입니다.`,
 
+  MENU_CATEGORY_APPETIZER: '애피타이저',
+  MENU_CATEGORY_MAIN: '메인',
+  MENU_CATEGORY_DESSERT: '디저트',
+  MENU_CATEGORY_BEVERAGE: '음료',
+
   SPACE: ' ',
   COMMA: ',',
   DASH: '-',

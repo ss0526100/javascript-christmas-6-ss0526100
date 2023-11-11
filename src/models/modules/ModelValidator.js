@@ -9,6 +9,8 @@ const ModelValidator = Object.freeze({
     if (Calculator.lastDayByMonth(month, leapYear) < date)
       throw new Error(INVALID_DATE_ERROR_MESSAGE);
   },
+
+  items(item, menu) {},
 });
 
 export default ModelValidator;

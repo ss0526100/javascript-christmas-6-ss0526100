@@ -17,9 +17,15 @@ const InputView = Object.freeze({
       }
     }
   },
-  async readOrderItems() {
-    return await Console.readLineAsync(ORDER_ITEMS_INPUT_MESSAGE);
+  async readOrderItems(outputView = OutputView) {
+    while (true) {
+      const date = await Console.readLineAsync(ORDER_ITEMS_INPUT_MESSAGE);
+      try {
+        return Pipe.filterOrderItems(date);
+      } catch (error) {
+        outputView.printError(error);
+      }
+    }
   },
-  // ...
 });
 export default InputView;
