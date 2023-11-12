@@ -9,7 +9,10 @@ const {
   ALL_BENEFIT_MESSAGE_FOOTER,
   INPUT_RETRY_MESSAGE,
   PRINT_MENU_HEADER_MESSAGE,
+  PRINT_ORIGINAL_PRICE_HEADER_MESSAGE,
   MENU_UNIT,
+  MONEY_UNIT,
+  KOREAN_LOCALE_CODE,
   SPACE,
   BLANK,
 } = CONSTANT;
@@ -29,6 +32,10 @@ const OutputView = Object.freeze({
   printMenu(orderItems) {
     Console.print(PRINT_MENU_HEADER_MESSAGE);
     orderItems.forEach(printItem);
+  },
+  printOriginalPrice(price) {
+    Console.print(PRINT_ORIGINAL_PRICE_HEADER_MESSAGE);
+    Console.print(`${price.toLocaleString(KOREAN_LOCALE_CODE)}${MONEY_UNIT}`);
   },
   printLineBreak() {
     Console.print(BLANK);

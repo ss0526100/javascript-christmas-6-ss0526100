@@ -12,6 +12,7 @@ const STRING = Object.freeze({
   ALL_BENEFIT_MESSAGE_FOOTER:
     '일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!',
   PRINT_MENU_HEADER_MESSAGE: '<주문 메뉴>',
+  PRINT_ORIGINAL_PRICE_HEADER_MESSAGE: '<할인 전 총주문 금액>',
 
   NOT_DIGIT_INTEGER_STRING_ERROR_MESSAGE: `${ERROR_HEADER} 10진수 정수가 아닙니다.`,
   NOT_NUMBER_IN_RANGE_ERROR_MESSAGE: `${ERROR_HEADER} 범위 바깥의 숫자입니다`,
@@ -27,6 +28,8 @@ const STRING = Object.freeze({
   MENU_CATEGORY_BEVERAGE: '음료',
 
   MENU_UNIT: '개',
+  MONEY_UNIT: '원',
+  KOREAN_LOCALE_CODE: 'ko-KR',
 
   SPACE: ' ',
   COMMA: ',',

@@ -37,6 +37,13 @@ class Model {
   getOrderItems() {
     return this.#order.getItems();
   }
+
+  getOrignalPrice(items = this.#order.getItems()) {
+    return items.reduce(
+      (prev, item) => prev + this.#menu.get(item.name).price * item.count,
+      0
+    );
+  }
 }
 
 export default Model;

@@ -53,13 +53,18 @@ class Controller {
   }
 
   #printAllBenefit() {
-    const items = this.#model.getOrderItems();
-    this.#printOrder(items);
+    this.#printMenu(this.#model.getOrderItems());
+    this.#printOriginalPrice(this.#model.getOrignalPrice());
   }
 
-  #printOrder(orderItems, blankHeader = true) {
+  #printMenu(orderItems, blankHeader = true) {
     if (blankHeader) this.#outputView.printLineBreak();
     this.#outputView.printMenu(orderItems);
+  }
+
+  #printOriginalPrice(price, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printOriginalPrice(price);
   }
 
   #printGiveaways(giveaways, blankHeader = true) {}
