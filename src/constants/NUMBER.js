@@ -2,6 +2,8 @@ const NUMBER = Object.freeze({
   FIRST_DATE_IN_MONTH: 1,
   LAST_DATE_IN_MONTH: 31,
 
+  MENU_COUNT_UPPER: 20,
+
   JANUARY: 1,
   FEBRUARY: 2,
   MARCH: 3,
