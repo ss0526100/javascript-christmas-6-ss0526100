@@ -19,7 +19,7 @@ test.each([
   const logSpy = getLogSpy();
 
   //when
-  outputView.printBenefitHeader(input);
+  outputView.printBenefitHeader(month, day);
 
   //then
   expect(logSpy.mock.calls[0][0]).toBe(
