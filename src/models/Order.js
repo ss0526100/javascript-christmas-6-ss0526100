@@ -14,15 +14,30 @@ class Order {
     OrderValidator.items(items, menu);
     this.#itemsMap = new Map();
     items.forEach(item => {
-      const categoryMap =
-        this.#itemsMap.get(menu.get(item.name).category) || new Map();
-      categoryMap.set({ name: item.name, count: item.count });
+      const itemInfo = menu.get(item.name);
+      const categorySet = this.#getCategorySet(itemInfo.category);
+      categorySet.add({ name: item.name, count: item.count });
     });
     Utils.freezeMap(this.#itemsMap);
   }
 
   getDate() {
     return this.#date;
+  }
+
+  getItems() {
+    const items = [];
+    this.#itemsMap.forEach(categorySet =>
+      categorySet.forEach(item => items.push(item))
+    );
+    return items;
+  }
+
+  #getCategorySet(category) {
+    if (this.#itemsMap.get(category) === undefined) {
+      this.#itemsMap.set(category, new Set());
+    }
+    return this.#itemsMap.get(category);
   }
 }
 

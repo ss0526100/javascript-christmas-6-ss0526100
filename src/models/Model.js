@@ -33,6 +33,10 @@ class Model {
     ModelValidator.item(item, this.#menu);
     this.#order.setItems(item);
   }
+
+  getOrderItems() {
+    return this.#order.getItems();
+  }
 }
 
 export default Model;

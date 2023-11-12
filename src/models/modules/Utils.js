@@ -13,9 +13,8 @@ const Utils = Object.freeze({
       object.clear = function () {
         throw "Can't clear map, map is frozen";
       };
-
-      Object.freeze(object);
     }
+    Object.freeze(object);
   },
 });
 

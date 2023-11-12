@@ -2,12 +2,12 @@ import Order from '../../../../src/models/Order';
 
 const mockMenu = items => {
   const menu = new Map();
-  items.map(item => menu.set(item.name, { category: 'a', price: 0 }));
+  items.forEach(item => menu.set(item.name, { category: 'a', price: 0 }));
   return menu;
 };
 
 const mockOrder = items => {
-  const order = new Order(date);
+  const order = new Order(1);
   const menu = mockMenu(items);
 
   order.setItems(items, menu);
@@ -16,14 +16,18 @@ const mockOrder = items => {
 
 test.each([
   [
-    { name: '국수', count: 3 },
-    { name: '소바', count: 3 },
-    { name: '토끼', count: 3 },
+    [
+      { name: '국수', count: 3 },
+      { name: '소바', count: 3 },
+      { name: '토끼', count: 3 },
+    ],
   ],
-  [{ name: '김치', count: 3 }],
+  [[{ name: '김치', count: 3 }]],
   [
-    { name: '멸치', count: 3 },
-    { name: '도라지', count: 3 },
+    [
+      { name: '멸치', count: 3 },
+      { name: '도라지', count: 3 },
+    ],
   ],
 ])('getItems()', items => {
   //given

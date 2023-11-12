@@ -52,7 +52,9 @@ class Controller {
     }
   }
 
-  #printAllBenefit() {}
+  #printAllBenefit() {
+    const items = this.#model.getOrderItems();
+  }
 
   #printOrder(orderItems, blankHeader = true) {}
 
