@@ -1,4 +1,4 @@
-import Pipe from '../../../../../src/views/modules/Pipe';
+import Pipe from '../../../../../src/controllers/modules/Pipe';
 
 describe('filterDate()', () => {
   test.each([

@@ -1,4 +1,4 @@
-import InputValidator from '../../../../../src/views/modules/InputValidator';
+import InputValidator from '../../../../../src/controllers/modules/InputValidator';
 
 describe('dateString()', () => {
   test.each([['1'], ['2'], ['3'], ['31']])('정상동작', input => {

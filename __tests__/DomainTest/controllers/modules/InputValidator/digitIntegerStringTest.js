@@ -1,4 +1,4 @@
-import InputValidator from '../../../../../src/views/modules/InputValidator';
+import InputValidator from '../../../../../src/controllers/modules/InputValidator';
 
 describe('digitIntegerString()', () => {
   test.each([['1'], ['13'], ['234213412341234'], ['-12'], ['0']])(

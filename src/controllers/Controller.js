@@ -1,6 +1,7 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import Model from '../models/Model.js';
+import Pipe from './modules/Pipe.js';
 
 class Controller {
   #model;
@@ -30,8 +31,8 @@ class Controller {
 
   async #setOrderDate() {
     while (true) {
-      const date = await this.#inputView.readDate();
       try {
+        const date = Pipe.filterDate(await this.#inputView.readDate());
         this.#model.initOrder(date);
         return;
       } catch (error) {
@@ -42,8 +43,10 @@ class Controller {
 
   async #setOrderItems() {
     while (true) {
-      const orderItems = await this.#inputView.readOrderItems();
       try {
+        const orderItems = Pipe.filterOrderItems(
+          await this.#inputView.readOrderItems()
+        );
         this.#model.setOrderItems(orderItems);
         return;
       } catch (error) {

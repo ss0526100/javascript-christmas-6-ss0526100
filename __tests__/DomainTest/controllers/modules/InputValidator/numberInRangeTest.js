@@ -1,4 +1,4 @@
-import InputValidator from '../../../../../src/views/modules/InputValidator';
+import InputValidator from '../../../../../src/controllers/modules/InputValidator';
 
 describe('numberInRange()', () => {
   test.each([
