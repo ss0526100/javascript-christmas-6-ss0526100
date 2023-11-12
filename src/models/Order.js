@@ -4,7 +4,7 @@ import OrderValidator from './modules/Ordervalidator.js';
 
 class Order {
   #date;
-  #items;
+  #itemsMap;
 
   constructor(date) {
     this.#date = date;
@@ -12,13 +12,13 @@ class Order {
 
   setItems(items, menu = Menu) {
     OrderValidator.items(items, menu);
-    this.#items = new Map();
+    this.#itemsMap = new Map();
     items.forEach(item => {
       const categoryMap =
-        this.#items.get(menu.get(item.name).category) || new Map();
+        this.#itemsMap.get(menu.get(item.name).category) || new Map();
       categoryMap.set({ name: item.name, count: item.count });
     });
-    Utils.freezeMap(this.#items);
+    Utils.freezeMap(this.#itemsMap);
   }
 
   getDate() {
