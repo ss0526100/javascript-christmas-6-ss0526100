@@ -30,6 +30,8 @@ const NUMBER = Object.freeze({
   THURSDAY: 4,
   FRIDAY: 5,
   SATURDAY: 6,
+
+  GIVEAWAY_PRICE: 120000,
 });
 
 export default NUMBER;

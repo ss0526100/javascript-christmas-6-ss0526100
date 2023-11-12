@@ -2,6 +2,8 @@ import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import Model from '../models/Model.js';
 import Pipe from './modules/Pipe.js';
+import CONSTANT from '../constants/CONSTANT.js';
+const { CHAMPAGNE, GIVEAWAY_PRICE } = CONSTANT;
 
 class Controller {
   #model;
@@ -56,8 +58,12 @@ class Controller {
   }
 
   #printAllBenefit() {
+    const originalPrice = this.#model.getOrignalPrice();
     this.#printMenu(this.#model.getOrderItems());
-    this.#printOriginalPrice(this.#model.getOrignalPrice());
+    this.#printOriginalPrice(originalPrice);
+    this.#printGiveaways(
+      originalPrice < GIVEAWAY_PRICE ? [] : [{ name: CHAMPAGNE, count: 1 }]
+    );
   }
 
   #printMenu(orderItems, blankHeader = true) {
@@ -70,7 +76,10 @@ class Controller {
     this.#outputView.printOriginalPrice(price);
   }
 
-  #printGiveaways(giveaways, blankHeader = true) {}
+  #printGiveaways(giveaways, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printgiveaways(giveaways);
+  }
 
   #printBenefits(benefits, blankHeader = true) {}
 

@@ -10,9 +10,11 @@ const {
   INPUT_RETRY_MESSAGE,
   PRINT_MENU_HEADER_MESSAGE,
   PRINT_ORIGINAL_PRICE_HEADER_MESSAGE,
+  PRINT_GIVEAWAY_HEADER_MESSAGE,
   MENU_UNIT,
   MONEY_UNIT,
   KOREAN_LOCALE_CODE,
+  NONE_MESSAGE,
   SPACE,
   BLANK,
 } = CONSTANT;
@@ -37,6 +39,12 @@ const OutputView = Object.freeze({
     Console.print(PRINT_ORIGINAL_PRICE_HEADER_MESSAGE);
     Console.print(`${price.toLocaleString(KOREAN_LOCALE_CODE)}${MONEY_UNIT}`);
   },
+  printgiveaways(giveaways) {
+    Console.print(PRINT_GIVEAWAY_HEADER_MESSAGE);
+    if (giveaways.length === 0) Console.print(NONE_MESSAGE);
+    else giveaways.forEach(printItem);
+  },
+
   printLineBreak() {
     Console.print(BLANK);
   },
