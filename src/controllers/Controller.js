@@ -54,9 +54,13 @@ class Controller {
 
   #printAllBenefit() {
     const items = this.#model.getOrderItems();
+    this.#printOrder(items);
   }
 
-  #printOrder(orderItems, blankHeader = true) {}
+  #printOrder(orderItems, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printMenu(orderItems);
+  }
 
   #printGiveaways(giveaways, blankHeader = true) {}
 

@@ -25,16 +25,16 @@ test.each([
     ],
     ['<주문 메뉴>', '김밥 1개', '떡볶이 5개', '순대 3개'],
   ],
-])('printOrderItems()', (orderItems, expectedValue) => {
+])('printMenu()', (orderItems, expectedValue) => {
   //given
   const outputView = OutputView;
   const logSpy = getLogSpy();
 
   //when
-  outputView.printOrderItems(orderItems);
+  outputView.printMenu(orderItems);
 
   //then
-  for (let index = 0; index < expectedValue.length; i++) {
+  for (let index = 0; index < expectedValue.length; index++) {
     expect(logSpy.mock.calls[index][0]).toBe(expectedValue[index]);
   }
 });

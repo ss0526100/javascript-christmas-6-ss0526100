@@ -8,9 +8,14 @@ const {
   ALL_BENEFIT_MESSAGE_DIV,
   ALL_BENEFIT_MESSAGE_FOOTER,
   INPUT_RETRY_MESSAGE,
+  PRINT_MENU_HEADER_MESSAGE,
+  MENU_UNIT,
   SPACE,
   BLANK,
 } = CONSTANT;
+
+const printItem = item =>
+  Console.print(`${item.name}${SPACE}${item.count}${MENU_UNIT}`);
 
 const OutputView = Object.freeze({
   printWelcomeMessage(month) {
@@ -21,9 +26,9 @@ const OutputView = Object.freeze({
       `${month}${ALL_BENEFIT_MESSAGE_DIV}${day}${ALL_BENEFIT_MESSAGE_FOOTER}`
     );
   },
-  printMenu() {
-    Console.print('<주문 메뉴>');
-    // ...
+  printMenu(orderItems) {
+    Console.print(PRINT_MENU_HEADER_MESSAGE);
+    orderItems.forEach(printItem);
   },
   printLineBreak() {
     Console.print(BLANK);
