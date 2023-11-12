@@ -5,10 +5,11 @@ import CONSTANT from '../constants/CONSTANT.js';
 const {
   WELCOME_MESSAGE_HEADER,
   WELCOME_MESSAGE_FOOTER,
-  BENEFIT_MESSAGE_DIV,
-  BENEFIT_MESSAGE_FOOTER,
+  ALL_BENEFIT_MESSAGE_DIV,
+  ALL_BENEFIT_MESSAGE_FOOTER,
   INPUT_RETRY_MESSAGE,
   SPACE,
+  BLANK,
 } = CONSTANT;
 
 const OutputView = Object.freeze({
@@ -17,12 +18,15 @@ const OutputView = Object.freeze({
   },
   printBenefitHeader(month, day) {
     Console.print(
-      `${month}${BENEFIT_MESSAGE_DIV}${day}${BENEFIT_MESSAGE_FOOTER}`
+      `${month}${ALL_BENEFIT_MESSAGE_DIV}${day}${ALL_BENEFIT_MESSAGE_FOOTER}`
     );
   },
   printMenu() {
     Console.print('<주문 메뉴>');
     // ...
+  },
+  printLineBreak() {
+    Console.print(BLANK);
   },
   printError(error) {
     Console.print(`${error.message}${SPACE}${INPUT_RETRY_MESSAGE}`);

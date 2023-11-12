@@ -20,6 +20,10 @@ class Order {
     });
     Utils.freezeMap(this.#items);
   }
+
+  getDate() {
+    return this.#date;
+  }
 }
 
 export default Order;

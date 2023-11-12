@@ -21,6 +21,11 @@ class Controller {
     this.#outputView.printWelcomeMessage(this.#model.getMonth());
     await this.#setOrderDate();
     await this.#setOrderItems();
+    this.#outputView.printBenefitHeader(
+      this.#model.getMonth(),
+      this.#model.getDate()
+    );
+    this.#printAllBenefit();
   }
 
   async #setOrderDate() {
@@ -46,6 +51,18 @@ class Controller {
       }
     }
   }
+
+  #printAllBenefit() {}
+
+  #printOrder(orderItems, blankHeader = true) {}
+
+  #printGiveaways(giveaways, blankHeader = true) {}
+
+  #printBenefits(benefits, blankHeader = true) {}
+
+  #printPayAmount(payAmount, blankHeader = true) {}
+
+  #printBadge(badge, blankHeader = true) {}
 }
 
 export default Controller;

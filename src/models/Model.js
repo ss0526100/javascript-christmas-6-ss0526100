@@ -20,6 +20,10 @@ class Model {
     return this.#monthInfo.month;
   }
 
+  getDate() {
+    return this.#order.getDate();
+  }
+
   initOrder(date) {
     ModelValidator.dateInMonth(date);
     this.#order = new Order(date);
