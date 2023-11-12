@@ -1,5 +1,6 @@
 import Menu from './Menu.js';
-import ModelValidator from './modules/ModelValidator.js';
+import Utils from './modules/Utils.js';
+import OrderValidator from './modules/Ordervalidator.js';
 
 class Order {
   #date;
@@ -7,11 +8,17 @@ class Order {
 
   constructor(date) {
     this.#date = date;
-    this.#items = new Map();
   }
 
   setItems(items, menu = Menu) {
-    ModelValidator.items(items, menu);
+    OrderValidator.items(items, menu);
+    this.#items = new Map();
+    items.forEach(item => {
+      const categoryMap =
+        this.#items.get(menu.get(item.name).category) || new Map();
+      categoryMap.set({ name: item.name, count: item.count });
+    });
+    Utils.freezeMap(this.#items);
   }
 }
 

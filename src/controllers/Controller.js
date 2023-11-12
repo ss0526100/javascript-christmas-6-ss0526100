@@ -30,7 +30,7 @@ class Controller {
         this.#model.initOrder(date);
         return;
       } catch (error) {
-        this.#outputView(error);
+        this.#outputView.printError(error);
       }
     }
   }
@@ -42,7 +42,7 @@ class Controller {
         this.#model.setOrderItems(orderItems);
         return;
       } catch (error) {
-        this.#outputView(error);
+        this.#outputView.printError(error);
       }
     }
   }

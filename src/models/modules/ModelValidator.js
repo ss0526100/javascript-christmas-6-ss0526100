@@ -16,12 +16,17 @@ const ModelValidator = Object.freeze({
       throw new Error(INVALID_DATE_ERROR_MESSAGE);
   },
 
-  itemInMenu(item, menu = Menu) {
+  item(items, menu = Menu) {
+    items.forEach(item => this.itemInMenu(item, menu));
+    this.onlyBeverage(items, menu);
+  },
+
+  itemInMenu(item, menu) {
     if (menu.get(item.name) === undefined)
       throw new Error(INVALID_ORDER_ERROR_MESSAGE);
   },
 
-  onlyBeverage(items, menu = Menu) {
+  onlyBeverage(items, menu) {
     const beverageCount = Calculator.countCategory(
       items,
       menu,

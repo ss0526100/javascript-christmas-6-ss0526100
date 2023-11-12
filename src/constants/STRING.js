@@ -6,7 +6,7 @@ const STRING = Object.freeze({
   DATE_INPUT_MESSAGE:
     '12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)\n',
   ORDER_ITEMS_INPUT_MESSAGE:
-    '주문하실 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)',
+    '주문하실 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)\n',
   INPUT_RETRY_MESSAGE: '다시 입력해 주세요.',
 
   NOT_DIGIT_INTEGER_STRING_ERROR_MESSAGE: `${ERROR_HEADER} 10진수 정수가 아닙니다.`,

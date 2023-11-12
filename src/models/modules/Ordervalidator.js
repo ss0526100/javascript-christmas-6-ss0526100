@@ -8,6 +8,11 @@ const {
 } = CONSTANT;
 
 const OrderValidator = Object.freeze({
+  items(items) {
+    items.forEach(this.lowerCount);
+    this.sameNameInItems(items);
+    this.totalCount(items);
+  },
   lowerCount(item) {
     if (item.count < 1) throw new Error(INVALID_ORDER_ERROR_MESSAGE);
   },

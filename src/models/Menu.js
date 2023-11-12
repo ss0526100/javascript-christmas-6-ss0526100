@@ -1,4 +1,5 @@
-import freezeMap from '../utils/freezeMap.js';
+import Utils from './modules/Utils.js';
+
 import CONSTANT from '../constants/CONSTANT.js';
 
 const {
@@ -35,10 +36,10 @@ const Menu = new Map();
 
 Object.keys(menuObject).forEach(category =>
   menuObject[category].forEach(item =>
-    Menu.set(item.name, Object.freeze({ category, price: item.price }))
+    Menu.set(item.name, { category, price: item.price })
   )
 );
 
-freezeMap(Menu);
+Utils.freezeMap(Menu);
 
 export default Menu;

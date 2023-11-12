@@ -26,6 +26,7 @@ class Model {
   }
 
   setOrderItems(item) {
+    ModelValidator.item(item, this.#menu);
     this.#order.setItems(item);
   }
 }
