@@ -23,6 +23,14 @@ const Calculator = Object.freeze({
     if (month === FEBRUARY && leapYear) return TWENTY_NINE;
     else return lastDay[month];
   },
+
+  countCategory(items, menu, category) {
+    return items.reduce(
+      (prev, item) =>
+        prev + (menu.get(item.name).category === category ? 1 : 0),
+      0
+    );
+  },
 });
 
 export default Calculator;
