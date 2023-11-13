@@ -12,6 +12,7 @@ const {
   PRINT_ORIGINAL_PRICE_HEADER_MESSAGE,
   PRINT_GIVEAWAY_HEADER_MESSAGE,
   PRINT_BENEFITS_HEADER_MESSAGE,
+  PRINT_TOTAL_BENEFIT_PRICE_HEADER_MESSAGE,
   MENU_UNIT,
   MONEY_UNIT,
   KOREAN_LOCALE_CODE,
@@ -59,6 +60,14 @@ const OutputView = Object.freeze({
     Console.print(PRINT_BENEFITS_HEADER_MESSAGE);
     if (benefits.length === 0) Console.print(NONE_MESSAGE);
     else benefits.forEach(printBenefit);
+  },
+  printTotalBenefitPrice(totalBenefitPrice) {
+    Console.print(PRINT_TOTAL_BENEFIT_PRICE_HEADER_MESSAGE);
+    Console.print(
+      `${totalBenefitPrice === 0 ? BLANK : DASH}${getMoneyString(
+        totalBenefitPrice
+      )}`
+    );
   },
 
   printLineBreak() {

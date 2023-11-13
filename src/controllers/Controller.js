@@ -60,12 +60,17 @@ class Controller {
     );
     const originalPrice = this.#model.getOrignalPrice();
     const benefits = this.#model.getShakedBenefits();
+    const totalBenefitPrice = benefits.reduce(
+      (prev, benefit) => prev + benefit.price,
+      0
+    );
     this.#printMenu(this.#model.getOrderItems());
     this.#printOriginalPrice(originalPrice);
     this.#printGiveaways(
       originalPrice < GIVEAWAY_PRICE ? [] : [{ name: CHAMPAGNE, count: 1 }]
     );
     this.#printBenefits(benefits);
+    this.#printTotalBenefitPrice(totalBenefitPrice);
   }
 
   #printMenu(orderItems, blankHeader = true) {
@@ -86,6 +91,11 @@ class Controller {
   #printBenefits(benefits, blankHeader = true) {
     if (blankHeader) this.#outputView.printLineBreak();
     this.#outputView.printBenefits(benefits);
+  }
+
+  #printTotalBenefitPrice(totalBenefitPrice, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printTotalBenefitPrice(totalBenefitPrice);
   }
 
   #printPayAmount(payAmount, blankHeader = true) {
