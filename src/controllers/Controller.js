@@ -99,21 +99,31 @@ class Controller {
     this.#printBadges(modelInfo.month, modelInfo.badges);
   }
 
-  #getModelInfo() {
+  #getModelInfo(supplyInfo = this.#getSupplyInfo()) {
     const model = this.#model;
-    const benefits = model.getShakedBenefits();
-    const originalPrice = model.getOrignalPrice();
-
     return {
       month: model.getMonth(),
       date: model.getDate(),
       orderItems: model.getOrderItems(),
-      originalPrice,
-      giveaways: getGiveaway(originalPrice),
+      originalPrice: supplyInfo.originalPrice,
+      giveaways: getGiveaway(supplyInfo.originalPrice),
+      benefits: supplyInfo.benefits,
+      totalBenefitPrice: supplyInfo.totalBenefitPrice,
+      finalPayAmount: getFinalPayAmount(
+        supplyInfo.originalPrice,
+        supplyInfo.benefits
+      ),
+      badges: getBadges(supplyInfo.totalBenefitPrice),
+    };
+  }
+
+  #getSupplyInfo() {
+    const model = this.#model;
+    const benefits = model.getShakedBenefits();
+    return {
       benefits,
+      originalPrice: model.getOrignalPrice(),
       totalBenefitPrice: getTotalBenefitPrice(benefits),
-      finalPayAmount: getFinalPayAmount(originalPrice, benefits),
-      badges: getBadges(),
     };
   }
 
