@@ -49,6 +49,7 @@ describe('크리스마스 디데이 할인', () => {
         {
           name: BENEFIT_CHRISTMAS_D_DAY_NAME,
           price: expectedPrice,
+          discount: true,
         },
       ])
     );
@@ -70,6 +71,7 @@ describe('크리스마스 디데이 할인', () => {
         {
           name: BENEFIT_CHRISTMAS_D_DAY_NAME,
           price: date * 100,
+          discount: true,
         },
       ])
     );

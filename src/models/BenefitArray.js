@@ -28,6 +28,9 @@ const BenefitArray = Object.freeze([
     getBenefit({ order }) {
       return 900 + order.getDate() * 100;
     },
+    isDiscount() {
+      return true;
+    },
   }),
   Object.freeze({
     name: BENEFIT_WEEKDAY_NAME,
@@ -38,6 +41,9 @@ const BenefitArray = Object.freeze([
     getBenefit({ order }) {
       return order.getCategoryCount(MENU_CATEGORY_DESSERT) * 2023;
     },
+    isDiscount() {
+      return true;
+    },
   }),
   Object.freeze({
     name: BENEFIT_WEEKEND_NAME,
@@ -47,6 +53,9 @@ const BenefitArray = Object.freeze([
     },
     getBenefit({ order }) {
       return order.getCategoryCount(MENU_CATEGORY_MAIN) * 2023;
+    },
+    isDiscount() {
+      return true;
     },
   }),
   Object.freeze({
@@ -60,6 +69,9 @@ const BenefitArray = Object.freeze([
     getBenefit() {
       return 1000;
     },
+    isDiscount() {
+      return true;
+    },
   }),
   Object.freeze({
     name: BENEFIT_GIVEAWAY_NAME,
@@ -70,6 +82,9 @@ const BenefitArray = Object.freeze([
     },
     getBenefit() {
       return 25000;
+    },
+    isDiscount() {
+      return false;
     },
   }),
 ]);

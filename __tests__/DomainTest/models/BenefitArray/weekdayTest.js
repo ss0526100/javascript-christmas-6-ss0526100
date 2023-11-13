@@ -88,6 +88,7 @@ describe('평일 할인', () => {
         {
           name: BENEFIT_WEEKDAY_NAME,
           price: expectedPrice,
+          discount: true,
         },
       ])
     );
@@ -121,6 +122,7 @@ describe('평일 할인', () => {
         {
           name: BENEFIT_WEEKDAY_NAME,
           price: expectedPrice,
+          discount: true,
         },
       ])
     );

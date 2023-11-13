@@ -30,6 +30,9 @@ const benefitArray = [
     getBenefit({ order }) {
       return order.getCategoryCount('soup') * 1000;
     },
+    isDiscount() {
+      return true;
+    },
   },
   {
     name: '주말행사',
@@ -38,6 +41,9 @@ const benefitArray = [
     },
     getBenefit({ order }) {
       return order.getTotalPrice() / 10;
+    },
+    isDiscount() {
+      return true;
     },
   },
   {
@@ -48,6 +54,9 @@ const benefitArray = [
     },
     getBenefit({ order }) {
       return order.getTotalPrice() / 2;
+    },
+    isDiscount() {
+      return true;
     },
   },
 ];
@@ -67,8 +76,8 @@ test.each([
       { name: '아이스크림', price: 1000, category: 'dessert' },
     ],
     [
-      { name: '신장개업 행사', price: 8000 },
-      { name: '10일의 날 행사', price: 37000 },
+      { name: '신장개업 행사', price: 8000, discount: true },
+      { name: '10일의 날 행사', price: 37000, discount: true },
     ],
   ],
   [
@@ -80,7 +89,7 @@ test.each([
       { name: '소고기뭇국', price: 7000, category: 'soup' },
       { name: '아이스크림', price: 1000, category: 'dessert' },
     ],
-    [{ name: '주말행사', price: 1000 }],
+    [{ name: '주말행사', price: 1000, discount: true }],
   ],
 ])(
   'getShakedBenefits()',

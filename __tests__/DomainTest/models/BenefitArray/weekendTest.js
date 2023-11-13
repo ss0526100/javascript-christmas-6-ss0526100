@@ -88,6 +88,7 @@ describe('주말 할인', () => {
         {
           name: BENEFIT_WEEKEND_NAME,
           price: expectedPrice,
+          discount: true,
         },
       ])
     );
@@ -121,6 +122,7 @@ describe('주말 할인', () => {
         {
           name: BENEFIT_WEEKEND_NAME,
           price: expectedPrice,
+          discount: true,
         },
       ])
     );

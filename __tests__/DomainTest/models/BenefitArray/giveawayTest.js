@@ -51,6 +51,7 @@ describe('주말 할인', () => {
         {
           name: BENEFIT_GIVEAWAY_NAME,
           price: 25000,
+          discount: false,
         },
       ])
     );
@@ -80,6 +81,7 @@ describe('주말 할인', () => {
         {
           name: BENEFIT_GIVEAWAY_NAME,
           price: 25000,
+          discount: false,
         },
       ])
     );

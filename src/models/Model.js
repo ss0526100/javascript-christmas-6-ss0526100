@@ -58,6 +58,7 @@ class Model {
         result.push({
           name: benefit.name,
           price,
+          discount: benefit.isDiscount(),
         });
     });
     return shakeArray(

@@ -48,6 +48,7 @@ describe('특별 할인', () => {
         {
           name: BENEFIT_SPECIAL_NAME,
           price: 1000,
+          discount: true,
         },
       ])
     );
@@ -70,6 +71,7 @@ describe('특별 할인', () => {
         {
           name: BENEFIT_SPECIAL_NAME,
           price: date * 100,
+          discount: true,
         },
       ])
     );
