@@ -78,6 +78,7 @@ class Controller {
     this.#printBenefits(benefits);
     this.#printTotalBenefitPrice(totalBenefitPrice);
     this.#printFinalPayAmount(finalPayAmount);
+    this.#printBadge(this.#model.getMonth(), totalBenefitPrice);
   }
 
   #printMenu(orderItems, blankHeader = true) {
@@ -110,8 +111,14 @@ class Controller {
     this.#outputView.printFinalPayAmount(finalPayAmount);
   }
 
-  #printBadge(badge, blankHeader = true) {
+  #printBadge(month, totalBenefitPrice, blankHeader = true) {
+    const badges = [];
+    if (totalBenefitPrice >= 20000) badges.push('산타');
+    else if (totalBenefitPrice > 10000) badges.push('트리');
+    else if (totalBenefitPrice > 5000) badges.push('별');
+
     if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printbadge(month, badges);
   }
 }
 

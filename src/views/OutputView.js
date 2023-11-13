@@ -14,6 +14,8 @@ const {
   PRINT_BENEFITS_HEADER_MESSAGE,
   PRINT_TOTAL_BENEFIT_PRICE_HEADER_MESSAGE,
   PRINT_FINAL_PAY_AMOUNT_HEADER_MESSAGE,
+  PRINT_BADGE_HEADER_MESSAGE_HEADER,
+  PRINT_BADGE_HEADER_MESSAGE_FOOTER,
   MENU_UNIT,
   MONEY_UNIT,
   KOREAN_LOCALE_CODE,
@@ -73,6 +75,14 @@ const OutputView = Object.freeze({
   printFinalPayAmount(finalPayAmount) {
     Console.print(PRINT_FINAL_PAY_AMOUNT_HEADER_MESSAGE);
     console.log(getMoneyString(finalPayAmount));
+  },
+
+  printbadge(month, badges) {
+    Console.print(
+      `${PRINT_BADGE_HEADER_MESSAGE_HEADER}${month}${PRINT_BADGE_HEADER_MESSAGE_FOOTER}`
+    );
+    if (badges.length === 0) Console.print(NONE_MESSAGE);
+    else badges.forEach(badge => Console.print(badge));
   },
 
   printLineBreak() {
