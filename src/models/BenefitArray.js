@@ -17,12 +17,13 @@ const {
   GIVEAWAY_PRICE,
 } = CONSTANT;
 
+const checkdefaultCondition = order => order.getTotalPrice() >= 10000;
+
 const BenefitArray = Object.freeze([
   Object.freeze({
     name: BENEFIT_CHRISTMAS_D_DAY_NAME,
     checkCondition({ order }) {
-      if (order.getDate() <= 25) return true;
-      else false;
+      return checkdefaultCondition(order) && order.getDate() <= 25;
     },
     getBenefit({ order }) {
       return order.getDate() * 100;
@@ -36,7 +37,7 @@ const BenefitArray = Object.freeze([
       else false;
     },
     getBenefit({ order }) {
-      return order.getCategorySize(MENU_CATEGORY_DESSERT) * 2023;
+      return order.getCategoryCount(MENU_CATEGORY_DESSERT) * 2023;
     },
   }),
   Object.freeze({
@@ -47,7 +48,7 @@ const BenefitArray = Object.freeze([
       else false;
     },
     getBenefit({ order }) {
-      return order.getCategorySize(MENU_CATEGORY_DESSERT) * 2023;
+      return order.getCategoryCount(MENU_CATEGORY_DESSERT) * 2023;
     },
   }),
   Object.freeze({
@@ -58,7 +59,7 @@ const BenefitArray = Object.freeze([
       else false;
     },
     getBenefit({ order }) {
-      return order.getCategorySize(MENU_CATEGORY_MAIN) * 2023;
+      return order.getCategoryCount(MENU_CATEGORY_MAIN) * 2023;
     },
   }),
   Object.freeze({

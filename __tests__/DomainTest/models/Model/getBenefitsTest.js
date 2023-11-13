@@ -28,7 +28,6 @@ const benefitArray = [
       else false;
     },
     getBenefit({ order }) {
-      console.log(order.getItems());
       return order.getCategoryCount('soup') * 1000;
     },
   },
