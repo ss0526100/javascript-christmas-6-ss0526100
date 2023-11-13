@@ -1,16 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
-import Pipe from '../controllers/modules/Pipe.js';
-import OutputView from './OutputView.js';
 
 import CONSTANT from '../constants/CONSTANT.js';
 
-const { DATE_INPUT_MESSAGE, ORDER_ITEMS_INPUT_MESSAGE } = CONSTANT;
+const { DATE_INPUT_MESSAGE_FOOTER, ORDER_ITEMS_INPUT_MESSAGE } = CONSTANT;
 
 const InputView = Object.freeze({
-  async readDate() {
-    return await Console.readLineAsync(DATE_INPUT_MESSAGE);
+  async readDate(month) {
+    return await Console.readLineAsync(`${month}${DATE_INPUT_MESSAGE_FOOTER}`);
   },
-  async readOrderItems(outputView = OutputView) {
+  async readOrderItems() {
     return await Console.readLineAsync(ORDER_ITEMS_INPUT_MESSAGE);
   },
 });

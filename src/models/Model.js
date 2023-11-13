@@ -31,7 +31,7 @@ class Model {
   }
 
   initOrder(date) {
-    ModelValidator.dateInMonth(date);
+    ModelValidator.dateInMonth(date, this.#monthInfo.month);
     this.#order = new Order(date);
   }
 

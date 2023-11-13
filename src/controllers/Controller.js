@@ -1,10 +1,19 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import Model from '../models/Model.js';
+
 import Pipe from './modules/Pipe.js';
+
 import CONSTANT from '../constants/CONSTANT.js';
-const { SANTA_BADGE, TREE_BADGE, STAR_BADGE, CHAMPAGNE, GIVEAWAY_PRICE } =
-  CONSTANT;
+const {
+  DECEMBER,
+  FRIDAY,
+  SANTA_BADGE,
+  TREE_BADGE,
+  STAR_BADGE,
+  CHAMPAGNE,
+  GIVEAWAY_PRICE,
+} = CONSTANT;
 
 const getTotalBenefitPrice = benefits =>
   benefits.reduce((prev, benefit) => prev + benefit.price, 0);
@@ -35,23 +44,28 @@ class Controller {
   #inputView;
   #outputView;
 
-  constructor(month = 12, inputView = InputView, outputView = OutputView) {
-    this.#model = new Model(month);
+  constructor(
+    month = DECEMBER,
+    firstDayWeek = FRIDAY,
+    inputView = InputView,
+    outputView = OutputView
+  ) {
+    this.#model = new Model(month, firstDayWeek);
     this.#inputView = inputView;
     this.#outputView = outputView;
   }
 
   async run() {
     this.#outputView.printWelcomeMessage(this.#model.getMonth());
-    await this.#setOrderDate();
+    await this.#setOrderDate(this.#model.getMonth());
     await this.#setOrderItems();
     this.#printAllBenefit(this.#getModelInfo());
   }
 
-  async #setOrderDate() {
+  async #setOrderDate(month) {
     while (true) {
       try {
-        const date = Pipe.filterDate(await this.#inputView.readDate());
+        const date = Pipe.filterDate(await this.#inputView.readDate(month));
         this.#model.initOrder(date);
         return;
       } catch (error) {
