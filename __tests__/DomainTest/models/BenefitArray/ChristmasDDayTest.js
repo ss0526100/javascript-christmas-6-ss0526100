@@ -26,22 +26,22 @@ const mockModel = (date, items) => {
 
 describe('크리스마스 디데이 할인', () => {
   test.each([
-    [4, [{ name: 'a', price: 1000, count: 10 }], 400],
-    [1, [{ name: 'a', price: 1000, count: 10 }], 100],
+    [4, [{ name: 'a', price: 1000, count: 10 }], 1300],
+    [1, [{ name: 'a', price: 1000, count: 10 }], 1000],
     [
       25,
       [
         { name: 'a', price: 1000, count: 3 },
         { name: 'b', price: 1000, count: 7 },
       ],
-      2500,
+      3400,
     ],
   ])('혜택O', (date, items, expectedPrice) => {
     //given
     const model = mockModel(date, items);
 
     //when
-    const benefits = model.getBenefits(BenefitArray);
+    const benefits = model.getShakedBenefits(BenefitArray);
 
     //then
     expect(benefits).toEqual(
@@ -62,7 +62,7 @@ describe('크리스마스 디데이 할인', () => {
     const model = mockModel(date, items);
 
     //when
-    const benefits = model.getBenefits(BenefitArray);
+    const benefits = model.getShakedBenefits(BenefitArray);
 
     //then
     expect(benefits).not.toEqual(

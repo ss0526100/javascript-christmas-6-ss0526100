@@ -13,13 +13,13 @@ test.each([
   [4, 30],
   [10, 30],
   [3, 4],
-])('printBenefitHeader()', (month, day) => {
+])('printAllBenefitHeader()', (month, day) => {
   //given
   const outputView = OutputView;
   const logSpy = getLogSpy();
 
   //when
-  outputView.printBenefitHeader(month, day);
+  outputView.printAllBenefitHeader(month, day);
 
   //then
   expect(logSpy.mock.calls[0][0]).toBe(

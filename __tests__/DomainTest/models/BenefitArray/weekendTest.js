@@ -80,7 +80,7 @@ describe('주말 할인', () => {
     const model = mockModel(dayWeek, items);
 
     //when
-    const benefits = model.getBenefits(BenefitArray);
+    const benefits = model.getShakedBenefits(BenefitArray);
 
     //then
     expect(benefits).toEqual(
@@ -114,7 +114,7 @@ describe('주말 할인', () => {
     const model = mockModel(dayWeek, items);
 
     //when
-    const benefits = model.getBenefits(BenefitArray);
+    const benefits = model.getShakedBenefits(BenefitArray);
     //then
     expect(benefits).not.toEqual(
       expect.arrayContaining([

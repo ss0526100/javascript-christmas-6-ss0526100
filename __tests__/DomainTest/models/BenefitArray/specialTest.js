@@ -40,7 +40,7 @@ describe('특별 할인', () => {
     const model = mockModel(date, items);
 
     //when
-    const benefits = model.getBenefits(BenefitArray);
+    const benefits = model.getShakedBenefits(BenefitArray);
 
     //then
     expect(benefits).toEqual(
@@ -62,7 +62,7 @@ describe('특별 할인', () => {
     const model = mockModel(date, items);
 
     //when
-    const benefits = model.getBenefits(BenefitArray);
+    const benefits = model.getShakedBenefits(BenefitArray);
 
     //then
     expect(benefits).not.toEqual(

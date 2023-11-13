@@ -82,13 +82,16 @@ test.each([
     ],
     [{ name: '주말행사', price: 1000 }],
   ],
-])('getBenefits()', (firstDayWeek, date, orderItems, menuItems, expected) => {
-  //given
-  const model = mockModel(firstDayWeek, date, orderItems, menuItems);
+])(
+  'getShakedBenefits()',
+  (firstDayWeek, date, orderItems, menuItems, expected) => {
+    //given
+    const model = mockModel(firstDayWeek, date, orderItems, menuItems);
 
-  //when
-  const benefits = model.getBenefits(benefitArray);
+    //when
+    const benefits = model.getShakedBenefits(benefitArray);
 
-  //then
-  expect(benefits).toEqual(expect.arrayContaining(expected));
-});
+    //then
+    expect(benefits).toEqual(expect.arrayContaining(expected));
+  }
+);
