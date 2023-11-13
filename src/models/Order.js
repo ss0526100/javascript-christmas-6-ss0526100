@@ -34,10 +34,10 @@ class Order {
   }
 
   getCategoryCount(category) {
+    const categoryInfo = this.#itemsMap.get(category);
+    if (categoryInfo === undefined) return 0;
     let totalCount = 0;
-    this.#itemsMap
-      .get(category)
-      .set.forEach(item => (totalCount += item.count));
+    categoryInfo.set.forEach(item => (totalCount += item.count));
 
     return totalCount;
   }
