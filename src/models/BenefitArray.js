@@ -31,21 +31,10 @@ const BenefitArray = Object.freeze([
   }),
   Object.freeze({
     name: BENEFIT_WEEKDAY_NAME,
-    checkCondition({ dayWeek }) {
+    checkCondition({ dayWeek, order }) {
+      console.log(order.getTotalPrice(), checkdefaultCondition(order));
       const targetDayWeek = [SUNDAY, MONDAY, TUSEDAY, WEDNESDAY, THURSDAY];
-      if (targetDayWeek.includes(dayWeek)) return true;
-      else false;
-    },
-    getBenefit({ order }) {
-      return order.getCategoryCount(MENU_CATEGORY_DESSERT) * 2023;
-    },
-  }),
-  Object.freeze({
-    name: BENEFIT_WEEKDAY_NAME,
-    checkCondition({ dayWeek }) {
-      const targetDayWeek = [SUNDAY, MONDAY, TUSEDAY, WEDNESDAY, THURSDAY];
-      if (targetDayWeek.includes(dayWeek)) return true;
-      else false;
+      return checkdefaultCondition(order) && targetDayWeek.includes(dayWeek);
     },
     getBenefit({ order }) {
       return order.getCategoryCount(MENU_CATEGORY_DESSERT) * 2023;

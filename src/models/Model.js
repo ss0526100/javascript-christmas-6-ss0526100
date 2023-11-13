@@ -48,10 +48,12 @@ class Model {
     const result = [];
     const modelInfo = this.#getModelInfo();
     benefitArray.forEach(benefit => {
-      if (benefit.checkCondition(modelInfo))
+      const isValid = benefit.checkCondition(modelInfo);
+      const price = benefit.getBenefit(modelInfo);
+      if (isValid && price !== 0)
         result.push({
           name: benefit.name,
-          price: benefit.getBenefit(modelInfo),
+          price,
         });
     });
     return result;
