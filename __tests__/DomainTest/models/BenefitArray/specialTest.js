@@ -55,6 +55,7 @@ describe('특별 할인', () => {
 
   test.each([
     [20, [{ name: 'a', price: 1000, count: 5 }]],
+    [17, [{ name: 'a', price: 1000, count: 5 }]],
     [26, [{ name: 'a', price: 1000, count: 10 }]],
   ])('혜택x', (date, items) => {
     //given

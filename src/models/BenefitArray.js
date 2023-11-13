@@ -53,8 +53,9 @@ const BenefitArray = Object.freeze([
     name: BENEFIT_SPECIAL_NAME,
     checkCondition({ order }) {
       const targetdate = [3, 10, 17, 24, 25, 31];
-      if (targetdate.includes(order.getDate())) return true;
-      else false;
+      return (
+        checkdefaultCondition(order) && targetdate.includes(order.getDate())
+      );
     },
     getBenefit() {
       return 1000;
