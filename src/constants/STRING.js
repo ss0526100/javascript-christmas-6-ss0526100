@@ -40,6 +40,10 @@ const STRING = Object.freeze({
   MENU_CATEGORY_BEVERAGE: '음료',
   CHAMPAGNE: '샴페인',
 
+  SANTA_BADGE: '산타',
+  TREE_BADGE: '트리',
+  STAR_BADGE: '별',
+
   MENU_UNIT: '개',
   MONEY_UNIT: '원',
   KOREAN_LOCALE_CODE: 'ko-KR',

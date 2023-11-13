@@ -3,19 +3,40 @@ import OutputView from '../views/OutputView.js';
 import Model from '../models/Model.js';
 import Pipe from './modules/Pipe.js';
 import CONSTANT from '../constants/CONSTANT.js';
-const { CHAMPAGNE, GIVEAWAY_PRICE } = CONSTANT;
+const { SANTA_BADGE, TREE_BADGE, STAR_BADGE, CHAMPAGNE, GIVEAWAY_PRICE } =
+  CONSTANT;
+
+const getTotalBenefitPrice = benefits =>
+  benefits.reduce((prev, benefit) => prev + benefit.price, 0);
+
+const getFinalPayAmount = (originalPrice, benefits) => {
+  return (
+    originalPrice -
+    benefits.reduce(
+      (prev, benefit) => prev + (benefit.discount ? benefit.price : 0),
+      0
+    )
+  );
+};
+
+const getGiveaway = originalPrice =>
+  originalPrice < GIVEAWAY_PRICE ? [] : [{ name: CHAMPAGNE, count: 1 }];
+
+const getBadges = totalBenefitPrice => {
+  const badges = [];
+  if (totalBenefitPrice >= 20000) badges.push(SANTA_BADGE);
+  else if (totalBenefitPrice > 10000) badges.push(TREE_BADGE);
+  else if (totalBenefitPrice > 5000) badges.push(STAR_BADGE);
+  return badges;
+};
 
 class Controller {
   #model;
   #inputView;
   #outputView;
 
-  constructor(
-    model = new Model(),
-    inputView = InputView,
-    outputView = OutputView
-  ) {
-    this.#model = model;
+  constructor(month = 12, inputView = InputView, outputView = OutputView) {
+    this.#model = new Model(month);
     this.#inputView = inputView;
     this.#outputView = outputView;
   }
@@ -24,7 +45,7 @@ class Controller {
     this.#outputView.printWelcomeMessage(this.#model.getMonth());
     await this.#setOrderDate();
     await this.#setOrderItems();
-    this.#printAllBenefit();
+    this.#printAllBenefit(this.#getModelInfo());
   }
 
   async #setOrderDate() {
@@ -53,32 +74,33 @@ class Controller {
     }
   }
 
-  #printAllBenefit() {
-    this.#outputView.printAllBenefitHeader(
-      this.#model.getMonth(),
-      this.#model.getDate()
-    );
-    const originalPrice = this.#model.getOrignalPrice();
-    const benefits = this.#model.getShakedBenefits();
-    const totalBenefitPrice = benefits.reduce(
-      (prev, benefit) => prev + benefit.price,
-      0
-    );
-    const finalPayAmount =
-      originalPrice -
-      benefits.reduce(
-        (prev, benefit) => prev + (benefit.discount ? benefit.price : 0),
-        0
-      );
-    this.#printMenu(this.#model.getOrderItems());
-    this.#printOriginalPrice(originalPrice);
-    this.#printGiveaways(
-      originalPrice < GIVEAWAY_PRICE ? [] : [{ name: CHAMPAGNE, count: 1 }]
-    );
-    this.#printBenefits(benefits);
-    this.#printTotalBenefitPrice(totalBenefitPrice);
-    this.#printFinalPayAmount(finalPayAmount);
-    this.#printBadge(this.#model.getMonth(), totalBenefitPrice);
+  #printAllBenefit(modelInfo = this.#getModelInfo()) {
+    this.#outputView.printAllBenefitHeader(modelInfo.month, modelInfo.date);
+    this.#printMenu(modelInfo.orderItems);
+    this.#printOriginalPrice(modelInfo.originalPrice);
+    this.#printGiveaways(modelInfo.giveaways);
+    this.#printBenefits(modelInfo.benefits);
+    this.#printTotalBenefitPrice(modelInfo.totalBenefitPrice);
+    this.#printFinalPayAmount(modelInfo.finalPayAmount);
+    this.#printBadges(modelInfo.month, modelInfo.badges);
+  }
+
+  #getModelInfo() {
+    const model = this.#model;
+    const benefits = model.getShakedBenefits();
+    const originalPrice = model.getOrignalPrice();
+
+    return {
+      month: model.getMonth(),
+      date: model.getDate(),
+      orderItems: model.getOrderItems(),
+      originalPrice,
+      giveaways: getGiveaway(originalPrice),
+      benefits,
+      totalBenefitPrice: getTotalBenefitPrice(benefits),
+      finalPayAmount: getFinalPayAmount(originalPrice, benefits),
+      badges: getBadges(),
+    };
   }
 
   #printMenu(orderItems, blankHeader = true) {
@@ -111,12 +133,7 @@ class Controller {
     this.#outputView.printFinalPayAmount(finalPayAmount);
   }
 
-  #printBadge(month, totalBenefitPrice, blankHeader = true) {
-    const badges = [];
-    if (totalBenefitPrice >= 20000) badges.push('산타');
-    else if (totalBenefitPrice > 10000) badges.push('트리');
-    else if (totalBenefitPrice > 5000) badges.push('별');
-
+  #printBadges(month, badges, blankHeader = true) {
     if (blankHeader) this.#outputView.printLineBreak();
     this.#outputView.printbadge(month, badges);
   }
