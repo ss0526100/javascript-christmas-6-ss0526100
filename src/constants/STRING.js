@@ -14,6 +14,7 @@ const STRING = Object.freeze({
   PRINT_MENU_HEADER_MESSAGE: '<주문 메뉴>',
   PRINT_ORIGINAL_PRICE_HEADER_MESSAGE: '<할인 전 총주문 금액>',
   PRINT_GIVEAWAY_HEADER_MESSAGE: '<증정 메뉴>',
+  PRINT_BENEFITS_HEADER_MESSAGE: '<혜택 내역>',
 
   BENEFIT_CHRISTMAS_D_DAY_NAME: '크리스마스 디데이 할인',
   BENEFIT_WEEKDAY_NAME: '평일 할인',
@@ -44,6 +45,7 @@ const STRING = Object.freeze({
   COMMA: ',',
   DASH: '-',
   BLANK: '',
+  COLON: ':',
 });
 
 export default STRING;

@@ -16,6 +16,17 @@ const Utils = Object.freeze({
     }
     Object.freeze(object);
   },
+  shakeArray(array, compareFunction) {
+    const tmpArray1 = [...array].sort(compareFunction);
+    const tmpArray2 = tmpArray1.splice(Math.ceil(tmpArray1.length / 2));
+    const resultArray = [];
+    while (tmpArray2.length !== 0) {
+      resultArray.push(tmpArray1.pop());
+      resultArray.push(tmpArray2.pop());
+    }
+    if (tmpArray1.length !== 0) resultArray.push(tmpArray1.pop());
+    return resultArray;
+  },
 });
 
 export default Utils;

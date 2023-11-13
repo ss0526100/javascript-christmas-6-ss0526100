@@ -24,10 +24,6 @@ class Controller {
     this.#outputView.printWelcomeMessage(this.#model.getMonth());
     await this.#setOrderDate();
     await this.#setOrderItems();
-    this.#outputView.printBenefitHeader(
-      this.#model.getMonth(),
-      this.#model.getDate()
-    );
     this.#printAllBenefit();
   }
 
@@ -58,12 +54,18 @@ class Controller {
   }
 
   #printAllBenefit() {
+    this.#outputView.printAllBenefitHeader(
+      this.#model.getMonth(),
+      this.#model.getDate()
+    );
     const originalPrice = this.#model.getOrignalPrice();
+    const benefits = this.#model.getShakedBenefits();
     this.#printMenu(this.#model.getOrderItems());
     this.#printOriginalPrice(originalPrice);
     this.#printGiveaways(
       originalPrice < GIVEAWAY_PRICE ? [] : [{ name: CHAMPAGNE, count: 1 }]
     );
+    this.#printBenefits(benefits);
   }
 
   #printMenu(orderItems, blankHeader = true) {
@@ -81,11 +83,18 @@ class Controller {
     this.#outputView.printgiveaways(giveaways);
   }
 
-  #printBenefits(benefits, blankHeader = true) {}
+  #printBenefits(benefits, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printBenefits(benefits);
+  }
 
-  #printPayAmount(payAmount, blankHeader = true) {}
+  #printPayAmount(payAmount, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+  }
 
-  #printBadge(badge, blankHeader = true) {}
+  #printBadge(badge, blankHeader = true) {
+    if (blankHeader) this.#outputView.printLineBreak();
+  }
 }
 
 export default Controller;

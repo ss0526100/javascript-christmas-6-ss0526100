@@ -2,11 +2,15 @@ import Order from './Order.js';
 import Menu from './Menu.js';
 import ModelValidator from './modules/ModelValidator.js';
 
-import CONSTANT from '../constants/CONSTANT.js';
 import Calculator from './modules/Calculator.js';
 import BenefitArray from './BenefitArray.js';
 
+import Utils from './modules/Utils.js';
+import CONSTANT from '../constants/CONSTANT.js';
+
 const { DECEMBER, FRIDAY } = CONSTANT;
+
+const { shakeArray } = Utils;
 
 class Model {
   #monthInfo;
@@ -44,7 +48,7 @@ class Model {
     return this.#order.getTotalPrice();
   }
 
-  getBenefits(benefitArray = BenefitArray) {
+  getShakedBenefits(benefitArray = BenefitArray) {
     const result = [];
     const modelInfo = this.#getModelInfo();
     benefitArray.forEach(benefit => {
@@ -56,7 +60,10 @@ class Model {
           price,
         });
     });
-    return result;
+    return shakeArray(
+      result,
+      (benefitA, benefitB) => benefitB.price - benefitA.price
+    );
   }
 
   #getModelInfo() {

@@ -11,22 +11,33 @@ const {
   PRINT_MENU_HEADER_MESSAGE,
   PRINT_ORIGINAL_PRICE_HEADER_MESSAGE,
   PRINT_GIVEAWAY_HEADER_MESSAGE,
+  PRINT_BENEFITS_HEADER_MESSAGE,
   MENU_UNIT,
   MONEY_UNIT,
   KOREAN_LOCALE_CODE,
   NONE_MESSAGE,
   SPACE,
   BLANK,
+  DASH,
+  COLON,
 } = CONSTANT;
 
 const printItem = item =>
   Console.print(`${item.name}${SPACE}${item.count}${MENU_UNIT}`);
 
+const printBenefit = benefit =>
+  Console.print(
+    `${benefit.name}${COLON}${SPACE}${DASH}${getMoneyString(benefit.price)}`
+  );
+
+const getMoneyString = number =>
+  `${number.toLocaleString(KOREAN_LOCALE_CODE)}${MONEY_UNIT}`;
+
 const OutputView = Object.freeze({
   printWelcomeMessage(month) {
     Console.print(`${WELCOME_MESSAGE_HEADER}${month}${WELCOME_MESSAGE_FOOTER}`);
   },
-  printBenefitHeader(month, day) {
+  printAllBenefitHeader(month, day) {
     Console.print(
       `${month}${ALL_BENEFIT_MESSAGE_DIV}${day}${ALL_BENEFIT_MESSAGE_FOOTER}`
     );
@@ -37,12 +48,17 @@ const OutputView = Object.freeze({
   },
   printOriginalPrice(price) {
     Console.print(PRINT_ORIGINAL_PRICE_HEADER_MESSAGE);
-    Console.print(`${price.toLocaleString(KOREAN_LOCALE_CODE)}${MONEY_UNIT}`);
+    Console.print(getMoneyString(price));
   },
   printgiveaways(giveaways) {
     Console.print(PRINT_GIVEAWAY_HEADER_MESSAGE);
     if (giveaways.length === 0) Console.print(NONE_MESSAGE);
     else giveaways.forEach(printItem);
+  },
+  printBenefits(benefits) {
+    Console.print(PRINT_BENEFITS_HEADER_MESSAGE);
+    if (benefits.length === 0) Console.print(NONE_MESSAGE);
+    else benefits.forEach(printBenefit);
   },
 
   printLineBreak() {
