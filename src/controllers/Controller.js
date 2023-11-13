@@ -64,6 +64,12 @@ class Controller {
       (prev, benefit) => prev + benefit.price,
       0
     );
+    const finalPayAmount =
+      originalPrice -
+      benefits.reduce(
+        (prev, benefit) => prev + (benefit.discount ? benefit.price : 0),
+        0
+      );
     this.#printMenu(this.#model.getOrderItems());
     this.#printOriginalPrice(originalPrice);
     this.#printGiveaways(
@@ -71,7 +77,7 @@ class Controller {
     );
     this.#printBenefits(benefits);
     this.#printTotalBenefitPrice(totalBenefitPrice);
-    this.#printFinalPayAmount(originalPrice - totalBenefitPrice);
+    this.#printFinalPayAmount(finalPayAmount);
   }
 
   #printMenu(orderItems, blankHeader = true) {
