@@ -63,9 +63,10 @@ const BenefitArray = Object.freeze([
   }),
   Object.freeze({
     name: BENEFIT_GIVEAWAY_NAME,
-    checkCondition({ originalPrice }) {
-      if (originalPrice > GIVEAWAY_PRICE) return true;
-      else false;
+    checkCondition({ order }) {
+      return (
+        checkdefaultCondition(order) && order.getTotalPrice() >= GIVEAWAY_PRICE
+      );
     },
     getBenefit() {
       return 25000;
