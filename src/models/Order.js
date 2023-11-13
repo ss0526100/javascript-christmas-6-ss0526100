@@ -24,13 +24,22 @@ class Order {
   getItems() {
     const items = [];
     this.#itemsMap.forEach(categoryObject =>
-      categoryObject.set.forEach(item => items.push(item))
+      categoryObject.set.forEach(item => items.push({ ...item }))
     );
     return items;
   }
 
   getTotalPrice() {
     return this.#totalPrice;
+  }
+
+  getCategoryCount(category) {
+    let totalCount = 0;
+    this.#itemsMap
+      .get(category)
+      .set.forEach(item => (totalCount += item.count));
+
+    return totalCount;
   }
 
   #setTotalPrice() {

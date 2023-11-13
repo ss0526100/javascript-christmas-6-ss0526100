@@ -31,6 +31,10 @@ const Calculator = Object.freeze({
       0
     );
   },
+
+  dayWeek(date, firstDayWeek) {
+    return (date - 1 + firstDayWeek) % 7;
+  },
 });
 
 export default Calculator;

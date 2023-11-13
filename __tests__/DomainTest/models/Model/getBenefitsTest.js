@@ -28,15 +28,14 @@ const benefitArray = [
       else false;
     },
     getBenefit({ order }) {
-      return order.getCategorySize('soup') * 1000;
+      console.log(order.getItems());
+      return order.getCategoryCount('soup') * 1000;
     },
   },
   {
     name: '주말행사',
     checkCondition({ dayWeek }) {
-      const targetDayWeek = [SATURDAY, SUNDAY];
-      if (targetDayWeek.includes(dayWeek)) return true;
-      else false;
+      return [SATURDAY, SUNDAY].includes(dayWeek);
     },
     getBenefit({ order }) {
       return order.getTotalPrice() / 10;
@@ -44,12 +43,12 @@ const benefitArray = [
   },
   {
     name: '10일의 날 행사',
-    checkCondition({ date }) {
-      if (date === 10) return true;
+    checkCondition({ order }) {
+      if (order.getDate() === 10) return true;
       else false;
     },
-    getBenefit({ originalPrice }) {
-      return originalPrice / 2;
+    getBenefit({ order }) {
+      return order.getTotalPrice() / 2;
     },
   },
 ];
@@ -69,8 +68,8 @@ test.each([
       { name: '아이스크림', price: 1000, category: 'dessert' },
     ],
     [
-      { name: '신장개업 행사', benefit: 8000 },
-      { name: '10일의 날 행사', benefit: 35650 },
+      { name: '신장개업 행사', price: 8000 },
+      { name: '10일의 날 행사', price: 37000 },
     ],
   ],
   [
@@ -82,18 +81,15 @@ test.each([
       { name: '소고기뭇국', price: 7000, category: 'soup' },
       { name: '아이스크림', price: 1000, category: 'dessert' },
     ],
-    [{ name: '주말행사', benefit: 3000 }],
+    [{ name: '주말행사', price: 1000 }],
   ],
-])(
-  'getBenefits()',
-  (firstDayWeek, date, orderItems, menuItems, expectedValue) => {
-    //given
-    const model = mockModel(firstDayWeek, date, orderItems, menuItems);
+])('getBenefits()', (firstDayWeek, date, orderItems, menuItems, expected) => {
+  //given
+  const model = mockModel(firstDayWeek, date, orderItems, menuItems);
 
-    //when
-    const benefits = model.getBenefits(benefitArray);
+  //when
+  const benefits = model.getBenefits(benefitArray);
 
-    //then
-    expect(benefits).arrayContaining(expectedValue);
-  }
-);
+  //then
+  expect(benefits).toEqual(expect.arrayContaining(expected));
+});

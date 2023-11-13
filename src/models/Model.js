@@ -44,33 +44,29 @@ class Model {
     return this.#order.getTotalPrice();
   }
 
-  //Not implemented
-  // getBenefit() {
-  //   const result = [];
-  //   const modelInfo = this.#getModelInfo();
-  //   BenefitArray.forEach(benefit => {
-  //     if (benefit.checkCondition(modelInfo))
-  //       result.push({
-  //         name: benefit.name,
-  //         price: benefit.getBenefit(modelInfo),
-  //       });
-  //   });
-  //   return result;
-  // }
+  getBenefits(benefitArray = BenefitArray) {
+    const result = [];
+    const modelInfo = this.#getModelInfo();
+    benefitArray.forEach(benefit => {
+      if (benefit.checkCondition(modelInfo))
+        result.push({
+          name: benefit.name,
+          price: benefit.getBenefit(modelInfo),
+        });
+    });
+    return result;
+  }
 
-  //Not implemented
-  // #getModelInfo() {
-  //   const originalPrice = this.getOrignalPrice();
-  //   const modelInfo = {
-  //     originalPrice,
-  //     dayWeek: Calculator.dayWeek(
-  //       this.#order.getDate,
-  //       this.#monthInfo.firstDayWeek
-  //     ),
-  //     order: this.#order,
-  //   };
-  //   return modelInfo;
-  // }
+  #getModelInfo() {
+    const modelInfo = {
+      dayWeek: Calculator.dayWeek(
+        this.#order.getDate(),
+        this.#monthInfo.firstDayWeek
+      ),
+      order: this.#order,
+    };
+    return modelInfo;
+  }
 }
 
 export default Model;
