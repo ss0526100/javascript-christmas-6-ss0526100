@@ -71,6 +71,7 @@ class Controller {
     );
     this.#printBenefits(benefits);
     this.#printTotalBenefitPrice(totalBenefitPrice);
+    this.#printFinalPayAmount(originalPrice - totalBenefitPrice);
   }
 
   #printMenu(orderItems, blankHeader = true) {
@@ -98,8 +99,9 @@ class Controller {
     this.#outputView.printTotalBenefitPrice(totalBenefitPrice);
   }
 
-  #printPayAmount(payAmount, blankHeader = true) {
+  #printFinalPayAmount(finalPayAmount, blankHeader = true) {
     if (blankHeader) this.#outputView.printLineBreak();
+    this.#outputView.printFinalPayAmount(finalPayAmount);
   }
 
   #printBadge(badge, blankHeader = true) {

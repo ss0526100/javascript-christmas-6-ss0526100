@@ -26,7 +26,7 @@ const BenefitArray = Object.freeze([
       return checkdefaultCondition(order) && order.getDate() <= 25;
     },
     getBenefit({ order }) {
-      return order.getDate() * 100;
+      return 900 + order.getDate() * 100;
     },
   }),
   Object.freeze({

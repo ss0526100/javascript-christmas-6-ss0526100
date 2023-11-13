@@ -13,6 +13,7 @@ const {
   PRINT_GIVEAWAY_HEADER_MESSAGE,
   PRINT_BENEFITS_HEADER_MESSAGE,
   PRINT_TOTAL_BENEFIT_PRICE_HEADER_MESSAGE,
+  PRINT_FINAL_PAY_AMOUNT_HEADER_MESSAGE,
   MENU_UNIT,
   MONEY_UNIT,
   KOREAN_LOCALE_CODE,
@@ -68,6 +69,10 @@ const OutputView = Object.freeze({
         totalBenefitPrice
       )}`
     );
+  },
+  printFinalPayAmount(finalPayAmount) {
+    Console.print(PRINT_FINAL_PAY_AMOUNT_HEADER_MESSAGE);
+    console.log(getMoneyString(finalPayAmount));
   },
 
   printLineBreak() {
