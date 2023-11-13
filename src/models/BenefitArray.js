@@ -1,4 +1,4 @@
-import CONSTANT from '../constants/CONSTANT';
+import CONSTANT from '../constants/CONSTANT.js';
 const {
   BENEFIT_CHRISTMAS_D_DAY_NAME,
   BENEFIT_WEEKDAY_NAME,
@@ -20,12 +20,12 @@ const {
 const BenefitArray = Object.freeze([
   Object.freeze({
     name: BENEFIT_CHRISTMAS_D_DAY_NAME,
-    checkCondition({ date }) {
-      if (date <= 25) return true;
+    checkCondition({ order }) {
+      if (order.getDate() <= 25) return true;
       else false;
     },
-    getBenefit({ date }) {
-      return date * 100;
+    getBenefit({ order }) {
+      return order.getDate() * 100;
     },
   }),
   Object.freeze({
@@ -63,9 +63,9 @@ const BenefitArray = Object.freeze([
   }),
   Object.freeze({
     name: BENEFIT_SPECIAL_NAME,
-    checkCondition({ date }) {
+    checkCondition({ order }) {
       const targetdate = [3, 10, 17, 24, 25, 31];
-      if (targetdate.includes(date)) return true;
+      if (targetdate.includes(order.getDate())) return true;
       else false;
     },
     getBenefit() {

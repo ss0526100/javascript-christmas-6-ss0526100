@@ -16,7 +16,7 @@ const ModelValidator = Object.freeze({
       throw new Error(INVALID_DATE_ERROR_MESSAGE);
   },
 
-  item(items, menu = Menu) {
+  items(items, menu = Menu) {
     items.forEach(item => this.itemInMenu(item, menu));
     this.onlyBeverage(items, menu);
   },

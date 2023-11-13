@@ -5,6 +5,7 @@ import OrderValidator from './modules/Ordervalidator.js';
 class Order {
   #date;
   #itemsMap;
+  #totalPrice;
 
   constructor(date) {
     this.#date = date;
@@ -12,13 +13,8 @@ class Order {
 
   setItems(items, menu = Menu) {
     OrderValidator.items(items, menu);
-    this.#itemsMap = new Map();
-    items.forEach(item => {
-      const itemInfo = menu.get(item.name);
-      const categorySet = this.#getCategorySet(itemInfo.category);
-      categorySet.add({ name: item.name, count: item.count });
-    });
-    Utils.freezeMap(this.#itemsMap);
+    this.#setItemsMap(items, menu);
+    this.#setTotalPrice();
   }
 
   getDate() {
@@ -27,15 +23,43 @@ class Order {
 
   getItems() {
     const items = [];
-    this.#itemsMap.forEach(categorySet =>
-      categorySet.forEach(item => items.push(item))
+    this.#itemsMap.forEach(categoryObject =>
+      categoryObject.set.forEach(item => items.push(item))
     );
     return items;
   }
 
-  #getCategorySet(category) {
+  getTotalPrice() {
+    return this.#totalPrice;
+  }
+
+  #setTotalPrice() {
+    this.#totalPrice = 0;
+    this.#itemsMap.forEach(
+      categoryObject => (this.#totalPrice += categoryObject.price)
+    );
+  }
+
+  #setItemsMap(items, menu) {
+    this.#itemsMap = new Map();
+    items.forEach(item => this.#addItem(item, menu));
+    Utils.freezeMap(this.#itemsMap);
+  }
+
+  #addItem(item, menu) {
+    const itemInfo = menu.get(item.name);
+    const categoryInfo = this.#getCategoryInfo(itemInfo.category);
+    categoryInfo.set.add({
+      name: item.name,
+      count: item.count,
+      price: itemInfo.price * item.count,
+    });
+    categoryInfo.price += itemInfo.price * item.count;
+  }
+
+  #getCategoryInfo(category) {
     if (this.#itemsMap.get(category) === undefined) {
-      this.#itemsMap.set(category, new Set());
+      this.#itemsMap.set(category, { set: new Set(), price: 0 });
     }
     return this.#itemsMap.get(category);
   }

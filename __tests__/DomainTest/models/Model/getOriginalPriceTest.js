@@ -8,8 +8,11 @@ const mockMenu = items => {
   return menu;
 };
 
-const mockModel = menu => {
-  return new Model(12, 5, menu);
+const mockModel = (orderItems, menuItems) => {
+  const model = new Model(12, 5, mockMenu(menuItems));
+  model.initOrder(1);
+  model.setOrderItems(orderItems);
+  return model;
 };
 
 test.each([
@@ -34,10 +37,10 @@ test.each([
   ],
 ])('getOriginalPrice()', (orderItems, menuItems, expectedNumber) => {
   //given
-  const model = mockModel(mockMenu(menuItems));
+  const model = mockModel(orderItems, menuItems);
 
   //when
-  const price = model.getOrignalPrice(orderItems);
+  const price = model.getOrignalPrice();
 
   //then
   expect(price).toBe(expectedNumber);
