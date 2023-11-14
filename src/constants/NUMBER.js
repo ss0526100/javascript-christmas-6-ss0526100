@@ -31,7 +31,7 @@ const NUMBER = Object.freeze({
   FRIDAY: 5,
   SATURDAY: 6,
 
-  GIVEAWAY_PRICE: 120000,
+  GIVEAWAY_STANDARD: 120000,
 });
 
 export default NUMBER;

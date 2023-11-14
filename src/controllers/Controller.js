@@ -3,41 +3,13 @@ import OutputView from '../views/OutputView.js';
 import Model from '../models/Model.js';
 
 import Pipe from './modules/Pipe.js';
+import ControllerUtils from './modules/ControllerUtils.js';
 
 import CONSTANT from '../constants/CONSTANT.js';
-const {
-  DECEMBER,
-  FRIDAY,
-  SANTA_BADGE,
-  TREE_BADGE,
-  STAR_BADGE,
-  CHAMPAGNE,
-  GIVEAWAY_PRICE,
-} = CONSTANT;
+const { DECEMBER, FRIDAY } = CONSTANT;
 
-const getTotalBenefitPrice = benefits =>
-  benefits.reduce((prev, benefit) => prev + benefit.price, 0);
-
-const getFinalPayAmount = (originalPrice, benefits) => {
-  return (
-    originalPrice -
-    benefits.reduce(
-      (prev, benefit) => prev + (benefit.discount ? benefit.price : 0),
-      0
-    )
-  );
-};
-
-const getGiveaway = originalPrice =>
-  originalPrice < GIVEAWAY_PRICE ? [] : [{ name: CHAMPAGNE, count: 1 }];
-
-const getBadges = totalBenefitPrice => {
-  const badges = [];
-  if (totalBenefitPrice >= 20000) badges.push(SANTA_BADGE);
-  else if (totalBenefitPrice > 10000) badges.push(TREE_BADGE);
-  else if (totalBenefitPrice > 5000) badges.push(STAR_BADGE);
-  return badges;
-};
+const { getTotalBenefitPrice, getFinalPayAmount, getGiveaway, getBadges } =
+  ControllerUtils;
 
 class Controller {
   #model;
@@ -100,8 +72,10 @@ class Controller {
   }
 
   #getModelInfo(supplyInfo = this.#getSupplyInfo()) {
+    const totalBenefitPrice = getTotalBenefitPrice(supplyInfo.benefits);
     return {
       ...supplyInfo,
+      totalBenefitPrice,
       giveaways: getGiveaway(supplyInfo.originalPrice),
       finalPayAmount: getFinalPayAmount(
         supplyInfo.originalPrice,
@@ -117,7 +91,6 @@ class Controller {
     return {
       benefits,
       originalPrice: model.getOrignalPrice(),
-      totalBenefitPrice: getTotalBenefitPrice(benefits),
       month: model.getMonth(),
       date: model.getDate(),
       orderItems: model.getOrderItems(),

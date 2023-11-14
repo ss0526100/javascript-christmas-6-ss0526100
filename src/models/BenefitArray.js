@@ -14,7 +14,7 @@ const {
   THURSDAY,
   FRIDAY,
   SATURDAY,
-  GIVEAWAY_PRICE,
+  GIVEAWAY_STANDARD: GIVEAWAY_PRICE,
 } = CONSTANT;
 
 const checkdefaultCondition = order => order.getTotalPrice() >= 10000;

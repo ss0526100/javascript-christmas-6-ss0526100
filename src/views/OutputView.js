@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
+import ViewUtils from './modules/ViewUtils.js';
 import CONSTANT from '../constants/CONSTANT.js';
 
 const {
@@ -17,8 +18,6 @@ const {
   PRINT_BADGE_HEADER_MESSAGE_HEADER,
   PRINT_BADGE_HEADER_MESSAGE_FOOTER,
   MENU_UNIT,
-  MONEY_UNIT,
-  KOREAN_LOCALE_CODE,
   NONE_MESSAGE,
   SPACE,
   BLANK,
@@ -26,71 +25,80 @@ const {
   COLON,
 } = CONSTANT;
 
-const printItem = item =>
-  Console.print(`${item.name}${SPACE}${item.count}${MENU_UNIT}`);
+const { getMoneyString } = ViewUtils;
 
-const printBenefit = benefit =>
-  Console.print(
-    `${benefit.name}${COLON}${SPACE}${DASH}${getMoneyString(benefit.price)}`
-  );
-
-const getMoneyString = number =>
-  `${number.toLocaleString(KOREAN_LOCALE_CODE)}${MONEY_UNIT}`;
-
-const OutputView = Object.freeze({
-  printWelcomeMessage(month) {
+class OutputView {
+  static printWelcomeMessage(month) {
     Console.print(`${WELCOME_MESSAGE_HEADER}${month}${WELCOME_MESSAGE_FOOTER}`);
-  },
-  printAllBenefitHeader(month, day) {
+  }
+
+  static printAllBenefitHeader(month, day) {
     Console.print(
       `${month}${ALL_BENEFIT_MESSAGE_DIV}${day}${ALL_BENEFIT_MESSAGE_FOOTER}`
     );
-  },
-  printMenu(orderItems) {
+  }
+
+  static printMenu(orderItems) {
     Console.print(PRINT_MENU_HEADER_MESSAGE);
-    orderItems.forEach(printItem);
-  },
-  printOriginalPrice(price) {
+    orderItems.forEach(this.#printItem);
+  }
+
+  static printOriginalPrice(price) {
     Console.print(PRINT_ORIGINAL_PRICE_HEADER_MESSAGE);
     Console.print(getMoneyString(price));
-  },
-  printgiveaways(giveaways) {
+  }
+
+  static printgiveaways(giveaways) {
     Console.print(PRINT_GIVEAWAY_HEADER_MESSAGE);
     if (giveaways.length === 0) Console.print(NONE_MESSAGE);
-    else giveaways.forEach(printItem);
-  },
-  printBenefits(benefits) {
+    else giveaways.forEach(this.#printItem);
+  }
+
+  static printBenefits(benefits) {
     Console.print(PRINT_BENEFITS_HEADER_MESSAGE);
     if (benefits.length === 0) Console.print(NONE_MESSAGE);
-    else benefits.forEach(printBenefit);
-  },
-  printTotalBenefitPrice(totalBenefitPrice) {
+    else benefits.forEach(this.#printBenefit);
+  }
+
+  static printTotalBenefitPrice(totalBenefitPrice) {
     Console.print(PRINT_TOTAL_BENEFIT_PRICE_HEADER_MESSAGE);
     Console.print(
       `${totalBenefitPrice === 0 ? BLANK : DASH}${getMoneyString(
         totalBenefitPrice
       )}`
     );
-  },
-  printFinalPayAmount(finalPayAmount) {
+  }
+
+  static printFinalPayAmount(finalPayAmount) {
     Console.print(PRINT_FINAL_PAY_AMOUNT_HEADER_MESSAGE);
     console.log(getMoneyString(finalPayAmount));
-  },
+  }
 
-  printbadge(month, badges) {
+  static printbadge(month, badges) {
     Console.print(
       `${PRINT_BADGE_HEADER_MESSAGE_HEADER}${month}${PRINT_BADGE_HEADER_MESSAGE_FOOTER}`
     );
     if (badges.length === 0) Console.print(NONE_MESSAGE);
     else badges.forEach(badge => Console.print(badge));
-  },
+  }
 
-  printLineBreak() {
+  static printLineBreak() {
     Console.print(BLANK);
-  },
-  printError(error) {
+  }
+
+  static printError(error) {
     Console.print(`${error.message}${SPACE}${INPUT_RETRY_MESSAGE}`);
-  },
-});
+  }
+
+  static #printItem(item) {
+    Console.print(`${item.name}${SPACE}${item.count}${MENU_UNIT}`);
+  }
+
+  static #printBenefit(benefit) {
+    Console.print(
+      `${benefit.name}${COLON}${SPACE}${DASH}${getMoneyString(benefit.price)}`
+    );
+  }
+}
 
 export default OutputView;

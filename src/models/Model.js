@@ -5,12 +5,12 @@ import ModelValidator from './modules/ModelValidator.js';
 import Calculator from './modules/Calculator.js';
 import BenefitArray from './BenefitArray.js';
 
-import Utils from './modules/Utils.js';
+import ModelUtils from './modules/ModelUtils.js';
 import CONSTANT from '../constants/CONSTANT.js';
 
 const { DECEMBER, FRIDAY } = CONSTANT;
 
-const { shakeArray } = Utils;
+const { shakeArray } = ModelUtils;
 
 class Model {
   #monthInfo;

@@ -1,4 +1,4 @@
-const Utils = Object.freeze({
+const ModelUtils = Object.freeze({
   freezeMap(object) {
     if (object instanceof Map) {
       object.forEach(this.freezeMap);
@@ -29,4 +29,4 @@ const Utils = Object.freeze({
   },
 });
 
-export default Utils;
+export default ModelUtils;

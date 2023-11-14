@@ -1,5 +1,5 @@
 import Menu from './Menu.js';
-import Utils from './modules/Utils.js';
+import ModelUtils from './modules/ModelUtils.js';
 import OrderValidator from './modules/Ordervalidator.js';
 
 class Order {
@@ -52,7 +52,7 @@ class Order {
   #setCategoryMap(items, menu) {
     this.#categoryMap = new Map();
     items.forEach(item => this.#addItem(item, menu));
-    Utils.freezeMap(this.#categoryMap);
+    ModelUtils.freezeMap(this.#categoryMap);
   }
 
   #addItem(item, menu) {

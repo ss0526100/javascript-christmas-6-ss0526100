@@ -1,4 +1,4 @@
-import Utils from './modules/Utils.js';
+import ModelUtils from './modules/ModelUtils.js';
 
 import CONSTANT from '../constants/CONSTANT.js';
 
@@ -40,6 +40,6 @@ Object.keys(menuObject).forEach(category =>
   )
 );
 
-Utils.freezeMap(Menu);
+ModelUtils.freezeMap(Menu);
 
 export default Menu;
