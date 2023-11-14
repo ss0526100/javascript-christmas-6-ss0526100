@@ -37,7 +37,7 @@ class Model {
 
   setOrderItems(items, menu = this.#menu) {
     ModelValidator.items(items, menu);
-    this.#order.setItems(items, menu);
+    this.#order.updateItems(items, menu);
   }
 
   getOrderItems() {

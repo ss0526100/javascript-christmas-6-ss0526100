@@ -4,16 +4,16 @@ import OrderValidator from './modules/Ordervalidator.js';
 
 class Order {
   #date;
-  #itemsMap;
+  #categoryMap;
   #totalPrice;
 
   constructor(date) {
     this.#date = date;
   }
 
-  setItems(items, menu = Menu) {
+  updateItems(items, menu = Menu) {
     OrderValidator.items(items, menu);
-    this.#setItemsMap(items, menu);
+    this.#setCategoryMap(items, menu);
     this.#setTotalPrice();
   }
 
@@ -23,8 +23,8 @@ class Order {
 
   getItems() {
     const items = [];
-    this.#itemsMap.forEach(categoryObject =>
-      categoryObject.set.forEach(item => items.push({ ...item }))
+    this.#categoryMap.forEach(categoryInfo =>
+      categoryInfo.set.forEach(item => items.push({ ...item }))
     );
     return items;
   }
@@ -34,7 +34,7 @@ class Order {
   }
 
   getCategoryCount(category) {
-    const categoryInfo = this.#itemsMap.get(category);
+    const categoryInfo = this.#categoryMap.get(category);
     if (categoryInfo === undefined) return 0;
     let totalCount = 0;
     categoryInfo.set.forEach(item => (totalCount += item.count));
@@ -44,15 +44,15 @@ class Order {
 
   #setTotalPrice() {
     this.#totalPrice = 0;
-    this.#itemsMap.forEach(
-      categoryObject => (this.#totalPrice += categoryObject.price)
+    this.#categoryMap.forEach(
+      categoryInfo => (this.#totalPrice += categoryInfo.price)
     );
   }
 
-  #setItemsMap(items, menu) {
-    this.#itemsMap = new Map();
+  #setCategoryMap(items, menu) {
+    this.#categoryMap = new Map();
     items.forEach(item => this.#addItem(item, menu));
-    Utils.freezeMap(this.#itemsMap);
+    Utils.freezeMap(this.#categoryMap);
   }
 
   #addItem(item, menu) {
@@ -67,10 +67,10 @@ class Order {
   }
 
   #getCategoryInfo(category) {
-    if (this.#itemsMap.get(category) === undefined) {
-      this.#itemsMap.set(category, { set: new Set(), price: 0 });
+    if (this.#categoryMap.get(category) === undefined) {
+      this.#categoryMap.set(category, { set: new Set(), price: 0 });
     }
-    return this.#itemsMap.get(category);
+    return this.#categoryMap.get(category);
   }
 }
 

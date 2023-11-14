@@ -15,7 +15,7 @@ const mockOrder = items => {
   const order = new Order(1);
   const menu = mockMenu(items);
 
-  order.setItems(items, menu);
+  order.updateItems(items, menu);
   return order;
 };
 
