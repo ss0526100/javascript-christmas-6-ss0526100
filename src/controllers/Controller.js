@@ -81,7 +81,7 @@ class Controller {
         supplyInfo.originalPrice,
         supplyInfo.benefits
       ),
-      badges: getBadges(supplyInfo.totalBenefitPrice),
+      badges: getBadges(totalBenefitPrice),
     };
   }
 
