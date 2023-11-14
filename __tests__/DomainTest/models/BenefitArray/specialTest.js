@@ -1,9 +1,9 @@
-import Model from '../../../../src/models/Model';
-import BenefitArray from '../../../../src/models/BenefitArray';
+import Order from '../../../../src/models/Order';
+import ModelUtils from '../../../../src/models/modules/ModelUtils';
 
 import CONSTANT from '../../../../src/constants/CONSTANT';
 
-const { BENEFIT_SPECIAL_NAME } = CONSTANT;
+const { BENEFIT_SPECIAL_NAME, BENEFIT_TYPE_DISCOUNT } = CONSTANT;
 
 const mockMenu = items => {
   const menu = new Map();
@@ -16,12 +16,14 @@ const mockMenu = items => {
   return menu;
 };
 
-const mockModel = (date, items) => {
-  const menu = mockMenu(items);
-  const model = new Model(12, 5, menu);
-  model.initOrder(date);
-  model.setOrderItems(items, menu);
-  return model;
+const mockOrder = (date, items) => {
+  const order = new Order(date);
+  order.updateItems(items, mockMenu(items));
+  return order;
+};
+
+const mockModelInfo = (date, items) => {
+  return { dayWeek: 0, order: mockOrder(date, items) };
 };
 
 describe('특별 할인', () => {
@@ -37,21 +39,17 @@ describe('특별 할인', () => {
     ],
   ])('혜택O', (date, items) => {
     //given
-    const model = mockModel(date, items);
+    const modelInfo = mockModelInfo(date, items);
 
     //when
-    const benefits = model.getShakedBenefits(BenefitArray);
+    const benefit = ModelUtils.filterBenefit('special', modelInfo);
 
     //then
-    expect(benefits).toEqual(
-      expect.arrayContaining([
-        {
-          name: BENEFIT_SPECIAL_NAME,
-          price: 1000,
-          discount: true,
-        },
-      ])
-    );
+    expect(benefit).toEqual({
+      name: BENEFIT_SPECIAL_NAME,
+      price: 1000,
+      type: BENEFIT_TYPE_DISCOUNT,
+    });
   });
 
   test.each([
@@ -60,20 +58,12 @@ describe('특별 할인', () => {
     [26, [{ name: 'a', price: 1000, count: 10 }]],
   ])('혜택x', (date, items) => {
     //given
-    const model = mockModel(date, items);
+    const modelInfo = mockModelInfo(date, items);
 
     //when
-    const benefits = model.getShakedBenefits(BenefitArray);
+    const benefit = ModelUtils.filterBenefit('special', modelInfo);
 
     //then
-    expect(benefits).not.toEqual(
-      expect.arrayContaining([
-        {
-          name: BENEFIT_SPECIAL_NAME,
-          price: date * 100,
-          discount: true,
-        },
-      ])
-    );
+    expect(benefit).toBe(undefined);
   });
 });

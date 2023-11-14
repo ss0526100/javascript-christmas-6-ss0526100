@@ -3,23 +3,30 @@ import Menu from './Menu.js';
 import ModelValidator from './modules/ModelValidator.js';
 
 import Calculator from './modules/Calculator.js';
-import BenefitArray from './BenefitArray.js';
+import BenefitInfo from './BenefitInfo.js';
 
 import ModelUtils from './modules/ModelUtils.js';
 import CONSTANT from '../constants/CONSTANT.js';
 
 const { DECEMBER, FRIDAY } = CONSTANT;
 
-const { shakeArray } = ModelUtils;
+const { shakeArray, filterBenefit } = ModelUtils;
 
 class Model {
   #monthInfo;
   #menu;
   #order;
+  #benefitInfo;
 
-  constructor(month = DECEMBER, firstDayWeek = FRIDAY, menu = Menu) {
+  constructor(
+    month = DECEMBER,
+    firstDayWeek = FRIDAY,
+    menu = Menu,
+    benefitInfo = BenefitInfo
+  ) {
     this.#monthInfo = Object.freeze({ month, firstDayWeek });
     this.#menu = menu;
+    this.#benefitInfo = benefitInfo;
   }
 
   getMonth() {
@@ -48,21 +55,12 @@ class Model {
     return this.#order.getTotalPrice();
   }
 
-  getShakedBenefits(benefitArray = BenefitArray) {
-    const result = [];
+  getShakedBenefits(benefitInfo = this.#benefitInfo) {
     const modelInfo = this.#getModelInfo();
-    benefitArray.forEach(benefit => {
-      const isValid = benefit.checkCondition(modelInfo);
-      const price = benefit.getBenefit(modelInfo);
-      if (isValid && price !== 0)
-        result.push({
-          name: benefit.name,
-          price,
-          discount: benefit.isDiscount(),
-        });
-    });
+    const benefitReducer = this.#getBenefitReducer(modelInfo);
+    const benefits = Object.keys(benefitInfo).reduce(benefitReducer, []);
     return shakeArray(
-      result,
+      benefits,
       (benefitA, benefitB) => benefitB.price - benefitA.price
     );
   }
@@ -76,6 +74,14 @@ class Model {
       order: this.#order,
     };
     return modelInfo;
+  }
+
+  #getBenefitReducer(modelInfo) {
+    return (array, benefitKey) => {
+      const result = filterBenefit(benefitKey, modelInfo, this.#benefitInfo);
+      if (result) array.push(result);
+      return array;
+    };
   }
 }
 

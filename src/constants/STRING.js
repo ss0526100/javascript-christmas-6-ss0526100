@@ -40,6 +40,9 @@ const STRING = Object.freeze({
   MENU_CATEGORY_BEVERAGE: 'beverage',
   CHAMPAGNE: '샴페인',
 
+  BENEFIT_TYPE_DISCOUNT: 'discount',
+  BENEFIT_TYPE_GIEVAWAY: 'giveaway',
+
   SANTA_BADGE: '산타',
   TREE_BADGE: '트리',
   STAR_BADGE: '별',

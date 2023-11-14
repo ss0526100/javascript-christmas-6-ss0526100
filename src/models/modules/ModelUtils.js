@@ -1,3 +1,5 @@
+import BenefitInfo from '../BenefitInfo.js';
+
 const ModelUtils = Object.freeze({
   freezeMap(object) {
     if (object instanceof Map) {
@@ -16,6 +18,7 @@ const ModelUtils = Object.freeze({
     }
     Object.freeze(object);
   },
+
   shakeArray(array, compareFunction) {
     const tmpArray1 = [...array].sort(compareFunction);
     const tmpArray2 = tmpArray1.splice(Math.ceil(tmpArray1.length / 2));
@@ -26,6 +29,19 @@ const ModelUtils = Object.freeze({
     }
     if (tmpArray1.length !== 0) resultArray.push(tmpArray1.pop());
     return resultArray;
+  },
+
+  filterBenefit(benefitName, modelInfo, benefitInfo = BenefitInfo) {
+    const benefit = benefitInfo[benefitName];
+    const isValid = benefit.checkCondition(modelInfo);
+    const price = benefit.getBenefit(modelInfo);
+    if (isValid && price !== 0)
+      return {
+        name: benefit.name,
+        price,
+        type: benefit.type,
+      };
+    else return;
   },
 });
 

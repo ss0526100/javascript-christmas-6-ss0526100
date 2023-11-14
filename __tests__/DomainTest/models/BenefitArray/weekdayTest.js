@@ -1,10 +1,11 @@
-import Model from '../../../../src/models/Model';
-import BenefitArray from '../../../../src/models/BenefitArray';
+import Order from '../../../../src/models/Order';
+import ModelUtils from '../../../../src/models/modules/ModelUtils';
 
 import CONSTANT from '../../../../src/constants/CONSTANT';
 
 const {
   BENEFIT_WEEKDAY_NAME,
+  BENEFIT_TYPE_DISCOUNT,
   MENU_CATEGORY_DESSERT,
   MENU_CATEGORY_APPETIZER,
   MENU_CATEGORY_MAIN,
@@ -21,7 +22,7 @@ const {
 const mockMenu = items => {
   const menu = new Map();
   items.forEach(item =>
-    menu.set(item.name, {
+    menu.set(item.name || 'name', {
       category: item.category || 'category',
       price: item.price || 0,
     })
@@ -29,12 +30,14 @@ const mockMenu = items => {
   return menu;
 };
 
-const mockModel = (dayWeek, items) => {
-  const menu = mockMenu(items);
-  const model = new Model(12, dayWeek, menu);
-  model.initOrder(1);
-  model.setOrderItems(items, menu);
-  return model;
+const mockOrder = items => {
+  const order = new Order(1);
+  order.updateItems(items, mockMenu(items));
+  return order;
+};
+
+const mockModelInfo = (dayWeek, items) => {
+  return { dayWeek: dayWeek, order: mockOrder(items) };
 };
 
 describe('평일 할인', () => {
@@ -77,54 +80,40 @@ describe('평일 할인', () => {
     ],
   ])('혜택O', (dayWeek, items, expectedPrice) => {
     //given
-    const model = mockModel(dayWeek, items);
+    const modelInfo = mockModelInfo(dayWeek, items);
 
     //when
-    const benefits = model.getShakedBenefits(BenefitArray);
+    const benefit = ModelUtils.filterBenefit('weekday', modelInfo);
 
     //then
-    expect(benefits).toEqual(
-      expect.arrayContaining([
-        {
-          name: BENEFIT_WEEKDAY_NAME,
-          price: expectedPrice,
-          discount: true,
-        },
-      ])
-    );
+    expect(benefit).toEqual({
+      name: BENEFIT_WEEKDAY_NAME,
+      price: expectedPrice,
+      type: BENEFIT_TYPE_DISCOUNT,
+    });
   });
 
   test.each([
     [
       FRIDAY,
       [{ name: 'a', price: 10000, count: 10, category: MENU_CATEGORY_DESSERT }],
-      20230,
     ],
     [
       MONDAY,
       [{ name: 'a', price: 5000, count: 1, category: MENU_CATEGORY_DESSERT }],
-      2023,
     ],
     [
       TUSEDAY,
       [{ name: 'a', price: 50000, count: 1, category: MENU_CATEGORY_MAIN }],
-      0,
     ],
-  ])('혜택x', (dayWeek, items, expectedPrice) => {
+  ])('혜택x', (dayWeek, items) => {
     //given
-    const model = mockModel(dayWeek, items);
+    const modelInfo = mockModelInfo(dayWeek, items);
 
     //when
-    const benefits = model.getShakedBenefits(BenefitArray);
+    const benefit = ModelUtils.filterBenefit('weekday', modelInfo);
+
     //then
-    expect(benefits).not.toEqual(
-      expect.arrayContaining([
-        {
-          name: BENEFIT_WEEKDAY_NAME,
-          price: expectedPrice,
-          discount: true,
-        },
-      ])
-    );
+    expect(benefit).toBe(undefined);
   });
 });

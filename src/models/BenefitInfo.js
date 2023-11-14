@@ -5,6 +5,8 @@ const {
   BENEFIT_WEEKEND_NAME,
   BENEFIT_SPECIAL_NAME,
   BENEFIT_GIVEAWAY_NAME,
+  BENEFIT_TYPE_DISCOUNT,
+  BENEFIT_TYPE_GIEVAWAY,
   MENU_CATEGORY_DESSERT,
   MENU_CATEGORY_MAIN,
   SUNDAY,
@@ -14,13 +16,13 @@ const {
   THURSDAY,
   FRIDAY,
   SATURDAY,
-  GIVEAWAY_STANDARD: GIVEAWAY_PRICE,
+  GIVEAWAY_STANDARD,
 } = CONSTANT;
 
 const checkdefaultCondition = order => order.getTotalPrice() >= 10000;
 
-const BenefitArray = Object.freeze([
-  Object.freeze({
+const BenefitInfo = Object.freeze({
+  christmasDDay: Object.freeze({
     name: BENEFIT_CHRISTMAS_D_DAY_NAME,
     checkCondition({ order }) {
       return checkdefaultCondition(order) && order.getDate() <= 25;
@@ -28,11 +30,9 @@ const BenefitArray = Object.freeze([
     getBenefit({ order }) {
       return 900 + order.getDate() * 100;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   }),
-  Object.freeze({
+  weekday: Object.freeze({
     name: BENEFIT_WEEKDAY_NAME,
     checkCondition({ dayWeek, order }) {
       const targetDayWeek = [SUNDAY, MONDAY, TUSEDAY, WEDNESDAY, THURSDAY];
@@ -41,11 +41,9 @@ const BenefitArray = Object.freeze([
     getBenefit({ order }) {
       return order.getCategoryCount(MENU_CATEGORY_DESSERT) * 2023;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   }),
-  Object.freeze({
+  weekend: Object.freeze({
     name: BENEFIT_WEEKEND_NAME,
     checkCondition({ dayWeek, order }) {
       const targetDayWeek = [FRIDAY, SATURDAY];
@@ -54,11 +52,9 @@ const BenefitArray = Object.freeze([
     getBenefit({ order }) {
       return order.getCategoryCount(MENU_CATEGORY_MAIN) * 2023;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   }),
-  Object.freeze({
+  special: Object.freeze({
     name: BENEFIT_SPECIAL_NAME,
     checkCondition({ order }) {
       const targetdate = [3, 10, 17, 24, 25, 31];
@@ -69,24 +65,21 @@ const BenefitArray = Object.freeze([
     getBenefit() {
       return 1000;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   }),
-  Object.freeze({
+  giveaway: Object.freeze({
     name: BENEFIT_GIVEAWAY_NAME,
     checkCondition({ order }) {
       return (
-        checkdefaultCondition(order) && order.getTotalPrice() >= GIVEAWAY_PRICE
+        checkdefaultCondition(order) &&
+        order.getTotalPrice() >= GIVEAWAY_STANDARD
       );
     },
     getBenefit() {
       return 25000;
     },
-    isDiscount() {
-      return false;
-    },
+    type: BENEFIT_TYPE_GIEVAWAY,
   }),
-]);
+});
 
-export default BenefitArray;
+export default BenefitInfo;

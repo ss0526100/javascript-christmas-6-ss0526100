@@ -2,8 +2,16 @@ import Model from '../../../../src/models/Model';
 
 import CONSTANT from '../../../../src/constants/CONSTANT';
 
-const { SUNDAY, MONDAY, TUSEDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY } =
-  CONSTANT;
+const {
+  SUNDAY,
+  MONDAY,
+  TUSEDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+  SATURDAY,
+  BENEFIT_TYPE_DISCOUNT,
+} = CONSTANT;
 
 const mockMenu = items => {
   const menu = new Map();
@@ -14,14 +22,14 @@ const mockMenu = items => {
 };
 
 const mockModel = (firstDayWeek, date, orderItems, menuItems) => {
-  const model = new Model(12, firstDayWeek, mockMenu(menuItems));
+  const model = new Model(12, firstDayWeek, mockMenu(menuItems), benefitInfo);
   model.initOrder(date);
   model.setOrderItems(orderItems);
   return model;
 };
 
-const benefitArray = [
-  {
+const benefitInfo = {
+  a: {
     name: '신장개업 행사',
     checkCondition({ order }) {
       if (order.getTotalPrice() > 50000) return true;
@@ -30,11 +38,9 @@ const benefitArray = [
     getBenefit({ order }) {
       return order.getCategoryCount('soup') * 1000;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   },
-  {
+  b: {
     name: '주말행사',
     checkCondition({ dayWeek }) {
       return [SATURDAY, SUNDAY].includes(dayWeek);
@@ -42,11 +48,9 @@ const benefitArray = [
     getBenefit({ order }) {
       return order.getTotalPrice() / 10;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   },
-  {
+  c: {
     name: '10일의 날 행사',
     checkCondition({ order }) {
       if (order.getDate() === 10) return true;
@@ -55,11 +59,9 @@ const benefitArray = [
     getBenefit({ order }) {
       return order.getTotalPrice() / 2;
     },
-    isDiscount() {
-      return true;
-    },
+    type: BENEFIT_TYPE_DISCOUNT,
   },
-];
+};
 
 test.each([
   [
@@ -76,8 +78,8 @@ test.each([
       { name: '아이스크림', price: 1000, category: 'dessert' },
     ],
     [
-      { name: '신장개업 행사', price: 8000, discount: true },
-      { name: '10일의 날 행사', price: 37000, discount: true },
+      { name: '신장개업 행사', price: 8000, type: BENEFIT_TYPE_DISCOUNT },
+      { name: '10일의 날 행사', price: 37000, type: BENEFIT_TYPE_DISCOUNT },
     ],
   ],
   [
@@ -89,7 +91,7 @@ test.each([
       { name: '소고기뭇국', price: 7000, category: 'soup' },
       { name: '아이스크림', price: 1000, category: 'dessert' },
     ],
-    [{ name: '주말행사', price: 1000, discount: true }],
+    [{ name: '주말행사', price: 1000, type: BENEFIT_TYPE_DISCOUNT }],
   ],
 ])(
   'getShakedBenefits()',
@@ -98,7 +100,7 @@ test.each([
     const model = mockModel(firstDayWeek, date, orderItems, menuItems);
 
     //when
-    const benefits = model.getShakedBenefits(benefitArray);
+    const benefits = model.getShakedBenefits(benefitInfo);
 
     //then
     expect(benefits).toEqual(expect.arrayContaining(expected));
