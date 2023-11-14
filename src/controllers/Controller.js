@@ -62,17 +62,15 @@ class Controller {
 
   #printModelInfo(modelInfo = this.#getModelInfo()) {
     this.#outputView.printAllBenefitHeader(modelInfo.month, modelInfo.date);
-    this.#printOrderItems(modelInfo.orderItems);
-    this.#printOriginalPrice(modelInfo.originalPrice);
-    this.#printGiveaways(modelInfo.giveaways);
-    this.#printBenefits(modelInfo.benefits);
-    this.#printTotalBenefitPrice(modelInfo.totalBenefitPrice);
-    this.#printFinalPayAmount(modelInfo.finalPayAmount);
-    this.#printBadges(modelInfo.month, modelInfo.badges);
+
+    this.#printOriginalOrderInfo(modelInfo);
+
+    this.#printInfoAfterApplyingBenenfit(modelInfo);
   }
 
   #getModelInfo(supplyInfo = this.#getSupplyInfo()) {
     const totalBenefitPrice = getTotalBenefitPrice(supplyInfo.benefits);
+
     return {
       ...supplyInfo,
       totalBenefitPrice,
@@ -88,6 +86,7 @@ class Controller {
   #getSupplyInfo() {
     const model = this.#model;
     const benefits = model.getShakedBenefits();
+
     return {
       benefits,
       originalPrice: model.getOrignalPrice(),
@@ -95,6 +94,19 @@ class Controller {
       date: model.getDate(),
       orderItems: model.getOrderItems(),
     };
+  }
+
+  #printOriginalOrderInfo({ orderItems, originalPrice }) {
+    this.#printOrderItems(orderItems);
+    this.#printOriginalPrice(originalPrice);
+  }
+
+  #printInfoAfterApplyingBenenfit(modelInfo) {
+    this.#printGiveaways(modelInfo.giveaways);
+    this.#printBenefits(modelInfo.benefits);
+    this.#printTotalBenefitPrice(modelInfo.totalBenefitPrice);
+    this.#printFinalPayAmount(modelInfo.finalPayAmount);
+    this.#printBadges(modelInfo.month, modelInfo.badges);
   }
 
   #printOrderItems(orderItems, blankHeader = true) {
