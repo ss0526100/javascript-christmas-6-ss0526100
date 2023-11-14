@@ -1,7 +1,13 @@
 import CONSTANT from '../../constants/CONSTANT.js';
 
-const { SANTA_BADGE, TREE_BADGE, STAR_BADGE, CHAMPAGNE, GIVEAWAY_STNADARD } =
-  CONSTANT;
+const {
+  SANTA_BADGE,
+  TREE_BADGE,
+  STAR_BADGE,
+  CHAMPAGNE,
+  GIVEAWAY_STNADARD,
+  BENEFIT_TYPE_DISCOUNT,
+} = CONSTANT;
 
 const getTotalBenefitPrice = benefits =>
   benefits.reduce((prev, benefit) => prev + benefit.price, 0);
@@ -10,7 +16,8 @@ const getFinalPayAmount = (originalPrice, benefits) => {
   return (
     originalPrice -
     benefits.reduce(
-      (prev, benefit) => prev + (benefit.discount ? benefit.price : 0),
+      (prev, benefit) =>
+        prev + (benefit.type === BENEFIT_TYPE_DISCOUNT ? benefit.price : 0),
       0
     )
   );
