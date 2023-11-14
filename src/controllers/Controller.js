@@ -59,7 +59,7 @@ class Controller {
     this.#outputView.printWelcomeMessage(this.#model.getMonth());
     await this.#setOrderDate(this.#model.getMonth());
     await this.#setOrderItems();
-    this.#printAllBenefit(this.#getModelInfo());
+    this.#printModelInfo(this.#getModelInfo());
   }
 
   async #setOrderDate(month) {
@@ -88,7 +88,7 @@ class Controller {
     }
   }
 
-  #printAllBenefit(modelInfo = this.#getModelInfo()) {
+  #printModelInfo(modelInfo = this.#getModelInfo()) {
     this.#outputView.printAllBenefitHeader(modelInfo.month, modelInfo.date);
     this.#printOrderItems(modelInfo.orderItems);
     this.#printOriginalPrice(modelInfo.originalPrice);
