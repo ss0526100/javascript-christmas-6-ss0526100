@@ -90,7 +90,7 @@ class Controller {
 
   #printAllBenefit(modelInfo = this.#getModelInfo()) {
     this.#outputView.printAllBenefitHeader(modelInfo.month, modelInfo.date);
-    this.#printMenu(modelInfo.orderItems);
+    this.#printOrderItems(modelInfo.orderItems);
     this.#printOriginalPrice(modelInfo.originalPrice);
     this.#printGiveaways(modelInfo.giveaways);
     this.#printBenefits(modelInfo.benefits);
@@ -100,15 +100,9 @@ class Controller {
   }
 
   #getModelInfo(supplyInfo = this.#getSupplyInfo()) {
-    const model = this.#model;
     return {
-      month: model.getMonth(),
-      date: model.getDate(),
-      orderItems: model.getOrderItems(),
-      originalPrice: supplyInfo.originalPrice,
+      ...supplyInfo,
       giveaways: getGiveaway(supplyInfo.originalPrice),
-      benefits: supplyInfo.benefits,
-      totalBenefitPrice: supplyInfo.totalBenefitPrice,
       finalPayAmount: getFinalPayAmount(
         supplyInfo.originalPrice,
         supplyInfo.benefits
@@ -124,10 +118,13 @@ class Controller {
       benefits,
       originalPrice: model.getOrignalPrice(),
       totalBenefitPrice: getTotalBenefitPrice(benefits),
+      month: model.getMonth(),
+      date: model.getDate(),
+      orderItems: model.getOrderItems(),
     };
   }
 
-  #printMenu(orderItems, blankHeader = true) {
+  #printOrderItems(orderItems, blankHeader = true) {
     if (blankHeader) this.#outputView.printLineBreak();
     this.#outputView.printMenu(orderItems);
   }
