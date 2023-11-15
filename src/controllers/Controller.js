@@ -8,12 +8,8 @@ import ControllerUtils from './modules/ControllerUtils.js';
 import CONSTANT from '../constants/CONSTANT.js';
 const { DECEMBER, FRIDAY } = CONSTANT;
 
-const {
-  getTotalBenefitPrice,
-  getFinalPayAmount,
-  getGiveaway: getGiveaways,
-  getBadges,
-} = ControllerUtils;
+const { getTotalBenefitPrice, getFinalPayAmount, getGiveaways, getBadges } =
+  ControllerUtils;
 
 class Controller {
   #model;

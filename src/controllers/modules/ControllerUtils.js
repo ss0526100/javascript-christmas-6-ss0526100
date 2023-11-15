@@ -23,7 +23,7 @@ const getFinalPayAmount = (originalPrice, benefits) => {
   );
 };
 
-const getGiveaway = originalPrice =>
+const getGiveaways = originalPrice =>
   originalPrice < GIVEAWAY_STNADARD ? [] : [{ name: CHAMPAGNE, count: 1 }];
 
 const getBadges = totalBenefitPrice => {
@@ -37,6 +37,6 @@ const getBadges = totalBenefitPrice => {
 export default {
   getTotalBenefitPrice,
   getFinalPayAmount,
-  getGiveaway,
+  getGiveaways,
   getBadges,
 };
