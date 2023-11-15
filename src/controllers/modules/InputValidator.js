@@ -11,7 +11,7 @@ const {
   INVALID_ORDER_ERROR_MESSAGE,
 } = CONSTANT;
 
-const InputValidator = Object.freeze({
+const InputValidator = {
   dateString(string) {
     try {
       this.digitIntegerString(string);
@@ -36,6 +36,6 @@ const InputValidator = Object.freeze({
     if (!ORDER_FORMAT_REGULAR_EXPRESSION.test(string))
       throw new Error(INVALID_ORDER_ERROR_MESSAGE);
   },
-});
+};
 
 export default InputValidator;
