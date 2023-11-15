@@ -3,13 +3,13 @@ import OutputView from '../views/OutputView.js';
 import Model from '../models/Model.js';
 
 import Pipe from './modules/Pipe.js';
-import ControllerUtils from './modules/ControllerUtils.js';
+import ControllersUtils from './modules/ControllersUtils.js';
 
 import CONSTANT from '../constants/CONSTANT.js';
 const { DECEMBER, FRIDAY } = CONSTANT;
 
 const { getTotalBenefitPrice, getFinalPayAmount, getGiveaways, getBadges } =
-  ControllerUtils;
+  ControllersUtils;
 
 class Controller {
   #model;

@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import ViewUtils from './modules/ViewUtils.js';
+import ViewsUtils from './modules/ViewsUtils.js';
 import CONSTANT from '../constants/CONSTANT.js';
 
 const {
@@ -25,7 +25,7 @@ const {
   COLON,
 } = CONSTANT;
 
-const { getMoneyString } = ViewUtils;
+const { getMoneyString } = ViewsUtils;
 
 class OutputView {
   static printWelcomeMessage(month) {

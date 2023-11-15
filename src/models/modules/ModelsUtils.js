@@ -1,6 +1,6 @@
 import BenefitInfo from '../BenefitInfo.js';
 
-const ModelUtils = Object.freeze({
+const ModelsUtils = Object.freeze({
   freezeMap(object) {
     if (object instanceof Map) {
       object.forEach(this.freezeMap);
@@ -45,4 +45,4 @@ const ModelUtils = Object.freeze({
   },
 });
 
-export default ModelUtils;
+export default ModelsUtils;

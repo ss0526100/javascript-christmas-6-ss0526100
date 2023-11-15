@@ -1,5 +1,5 @@
 import Order from '../../../../src/models/Order';
-import ModelUtils from '../../../../src/models/modules/ModelUtils';
+import ModelsUtils from '../../../../src/models/modules/ModelsUtils';
 
 import CONSTANT from '../../../../src/constants/CONSTANT';
 
@@ -83,7 +83,7 @@ describe('평일 할인', () => {
     const modelInfo = mockModelInfo(dayWeek, items);
 
     //when
-    const benefit = ModelUtils.filterBenefit('weekday', modelInfo);
+    const benefit = ModelsUtils.filterBenefit('weekday', modelInfo);
 
     //then
     expect(benefit).toEqual({
@@ -111,7 +111,7 @@ describe('평일 할인', () => {
     const modelInfo = mockModelInfo(dayWeek, items);
 
     //when
-    const benefit = ModelUtils.filterBenefit('weekday', modelInfo);
+    const benefit = ModelsUtils.filterBenefit('weekday', modelInfo);
 
     //then
     expect(benefit).toBe(undefined);
