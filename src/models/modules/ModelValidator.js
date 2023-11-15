@@ -17,8 +17,8 @@ class ModelValidator {
   }
 
   static items(items, menu = Menu) {
-    items.forEach(item => this.itemInMenu(item, menu));
-    this.onlyBeverage(items, menu);
+    items.forEach(item => ModelValidator.itemInMenu(item, menu));
+    ModelValidator.onlyBeverage(items, menu);
   }
 
   static itemInMenu(item, menu) {
