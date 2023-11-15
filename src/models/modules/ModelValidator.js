@@ -10,23 +10,23 @@ const {
   MENU_CATEGORY_BEVERAGE,
 } = CONSTANT;
 
-const ModelValidator = Object.freeze({
-  dateInMonth(date, month, leapYear = false) {
+class ModelValidator {
+  static dateInMonth(date, month, leapYear = false) {
     if (Calculator.lastDayByMonth(month, leapYear) < date)
       throw new Error(INVALID_DATE_ERROR_MESSAGE);
-  },
+  }
 
-  items(items, menu = Menu) {
+  static items(items, menu = Menu) {
     items.forEach(item => this.itemInMenu(item, menu));
     this.onlyBeverage(items, menu);
-  },
+  }
 
-  itemInMenu(item, menu) {
+  static itemInMenu(item, menu) {
     if (menu.get(item.name) === undefined)
       throw new Error(INVALID_ORDER_ERROR_MESSAGE);
-  },
+  }
 
-  onlyBeverage(items, menu) {
+  static onlyBeverage(items, menu) {
     const beverageCount = Calculator.countCategory(
       items,
       menu,
@@ -34,7 +34,7 @@ const ModelValidator = Object.freeze({
     );
     if (beverageCount === items.length)
       throw new Error(ONLY_BEVERAGE_ORDER_ERROR_MESSAGE);
-  },
-});
+  }
+}
 
 export default ModelValidator;
