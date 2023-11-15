@@ -7,6 +7,7 @@ const {
   CHAMPAGNE,
   GIVEAWAY_STNADARD,
   BENEFIT_TYPE_DISCOUNT,
+  DASH,
 } = CONSTANT;
 
 const getTotalBenefitPrice = benefits =>
@@ -34,9 +35,19 @@ const getBadges = totalBenefitPrice => {
   return badges;
 };
 
+const splitStringByToken = (string, token, isTriming = true) =>
+  string.split(token).map(string => (isTriming ? string.trim() : string));
+
+const changeItemFormatToObject = itemFormat => {
+  const itemArray = splitStringByToken(itemFormat, DASH);
+  return { name: itemArray[0], count: Number(itemArray[1]) };
+};
+
 export default {
   getTotalBenefitPrice,
   getFinalPayAmount,
   getGiveaways,
   getBadges,
+  splitStringByToken,
+  changeItemFormatToObject,
 };

@@ -1,36 +1,23 @@
 import InputValidator from './InputValidator.js';
+import ControllersUtils from './ControllersUtils.js';
 
 import CONSTANT from '../../constants/CONSTANT.js';
 
-const { COMMA, DASH } = CONSTANT;
+const { splitStringByToken, changeItemFormatToObject } = ControllersUtils;
 
-const spliter = (string, token, isTriming = true) =>
-  string.split(token).map(string => (isTriming ? string.trim() : string));
+const { COMMA } = CONSTANT;
 
-const itemFormatToObject = itemFormat => {
-  const itemArray = spliter(itemFormat, DASH);
-  return { name: itemArray[0], count: Number(itemArray[1]) };
-};
-
-const Pipe = Object.freeze({
+const Pipe = {
   filterDate(string) {
-    try {
-      InputValidator.dateString(string);
-      return Number(string);
-    } catch (error) {
-      throw error;
-    }
+    InputValidator.dateString(string);
+    return Number(string);
   },
 
   filterOrderItems(string) {
-    const orderItems = spliter(string, COMMA);
-    try {
-      orderItems.forEach(InputValidator.orderFormat);
-      return orderItems.map(itemFormatToObject);
-    } catch (error) {
-      throw error;
-    }
+    const orderItems = splitStringByToken(string, COMMA);
+    orderItems.forEach(InputValidator.orderFormat);
+    return orderItems.map(changeItemFormatToObject);
   },
-});
+};
 
 export default Pipe;
