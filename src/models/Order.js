@@ -21,16 +21,16 @@ class Order {
     return this.#date;
   }
 
+  getTotalPrice() {
+    return this.#totalPrice;
+  }
+
   getItems() {
     const items = [];
     this.#categoryMap.forEach(categoryInfo =>
       categoryInfo.set.forEach(item => items.push({ ...item }))
     );
     return items;
-  }
-
-  getTotalPrice() {
-    return this.#totalPrice;
   }
 
   getCategoryCount(category) {
