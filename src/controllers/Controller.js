@@ -8,8 +8,12 @@ import ControllerUtils from './modules/ControllerUtils.js';
 import CONSTANT from '../constants/CONSTANT.js';
 const { DECEMBER, FRIDAY } = CONSTANT;
 
-const { getTotalBenefitPrice, getFinalPayAmount, getGiveaway, getBadges } =
-  ControllerUtils;
+const {
+  getTotalBenefitPrice,
+  getFinalPayAmount,
+  getGiveaway: getGiveaways,
+  getBadges,
+} = ControllerUtils;
 
 class Controller {
   #model;
@@ -60,29 +64,6 @@ class Controller {
     }
   }
 
-  #printModelInfo(modelInfo = this.#getModelInfo()) {
-    this.#outputView.printAllBenefitHeader(modelInfo.month, modelInfo.date);
-
-    this.#printOriginalOrderInfo(modelInfo);
-
-    this.#printInfoAfterApplyingBenenfit(modelInfo);
-  }
-
-  #getModelInfo(supplyInfo = this.#getSupplyInfo()) {
-    const totalBenefitPrice = getTotalBenefitPrice(supplyInfo.benefits);
-
-    return {
-      ...supplyInfo,
-      totalBenefitPrice,
-      giveaways: getGiveaway(supplyInfo.originalPrice),
-      finalPayAmount: getFinalPayAmount(
-        supplyInfo.originalPrice,
-        supplyInfo.benefits
-      ),
-      badges: getBadges(totalBenefitPrice),
-    };
-  }
-
   #getSupplyInfo() {
     const model = this.#model;
     const benefits = model.getShakedBenefits();
@@ -94,6 +75,29 @@ class Controller {
       date: model.getDate(),
       orderItems: model.getOrderItems(),
     };
+  }
+
+  #getModelInfo(supplyInfo = this.#getSupplyInfo()) {
+    const totalBenefitPrice = getTotalBenefitPrice(supplyInfo.benefits);
+
+    return {
+      ...supplyInfo,
+      totalBenefitPrice,
+      giveaways: getGiveaways(supplyInfo.originalPrice),
+      finalPayAmount: getFinalPayAmount(
+        supplyInfo.originalPrice,
+        supplyInfo.benefits
+      ),
+      badges: getBadges(totalBenefitPrice),
+    };
+  }
+
+  #printModelInfo(modelInfo = this.#getModelInfo()) {
+    this.#outputView.printAllBenefitHeader(modelInfo.month, modelInfo.date);
+
+    this.#printOriginalOrderInfo(modelInfo);
+
+    this.#printInfoAfterApplyingBenenfit(modelInfo);
   }
 
   #printOriginalOrderInfo({ orderItems, originalPrice }) {
