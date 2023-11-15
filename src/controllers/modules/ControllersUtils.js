@@ -38,8 +38,8 @@ const getBadges = totalBenefitPrice => {
 const splitStringByToken = (string, token, isTriming = true) =>
   string.split(token).map(string => (isTriming ? string.trim() : string));
 
-const changeItemFormatToObject = itemFormat => {
-  const itemArray = splitStringByToken(itemFormat, DASH);
+const changeItemFormatToObject = itemFormatString => {
+  const itemArray = splitStringByToken(itemFormatString, DASH);
   return { name: itemArray[0], count: Number(itemArray[1]) };
 };
 
