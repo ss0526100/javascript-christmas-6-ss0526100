@@ -66,10 +66,9 @@ class Controller {
 
   #getSupplyInfo() {
     const model = this.#model;
-    const benefits = model.getShakedBenefits();
 
     return {
-      benefits,
+      benefits: model.getShakedBenefits(),
       originalPrice: model.getOrignalPrice(),
       month: model.getMonth(),
       date: model.getDate(),
